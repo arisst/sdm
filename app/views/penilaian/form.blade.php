@@ -79,8 +79,12 @@ else if('edit'==$act)
 	<div class="form-group">
 		{{ Form::label('voter_uid', 'Nama', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
+		@if(Auth::user()->level!=3)
 			{{ Form::select('voter_uid', array(''=>'- Pilih -') + $auth_option, Input::old('voter_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'voter_uid', 'required'))}}
-		<span class="help-block alert-danger">{{ $errors->first('voter_uid') }}</span>
+				<span class="help-block alert-danger">{{ $errors->first('voter_uid') }}</span>
+		@else
+			{{ Form::text('voter_uid', Auth::user()->name.' - '.Auth::user()->division['name'].' - '.Auth::user()->position, array('class'=>'form-control', 'id'=>'voter_uid', 'readonly')) }}		
+		@endif
 		</div>
 	</div>
 
@@ -339,14 +343,6 @@ else if('edit'==$act)
 			</div>
 	</div>
 
-	<!-- <div class="form-group">
-		{{ Form::label('voter_comments', 'Komentar/Masukan dari Karyawan', array('class'=>'col-sm-3 control-label')) }}
-			<div class="input-group col-xs-6">
-				{{ Form::textarea('voter_comments', Input::old('voter_comments'), array('size'=>'30x4','class'=>'form-control input-sm', 'id'=>'voter_comments')) }}
-				<span class="help-block alert-danger">{{ $errors->first('voter_comments') }}</span>
-			</div>
-		</div> -->
-
 	<div class="form-group">
 		<div class="col-sm-offset-3">
 	
@@ -355,7 +351,7 @@ else if('edit'==$act)
 			<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
 		@else
 			@if(Auth::user()->id==$penilaian->voter_uid)
-				<a class="btn btn-sm btn-success" href="?">
+				<a class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">
 						<span class="glyphicon glyphicon-edit"></span> Kirim Masukan/Respon
 					</a>
 			@else
@@ -374,6 +370,33 @@ else if('edit'==$act)
 	</div>
 
 	{{ Form::close() }}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Form Masukan / komentar</h4>
+      </div>
+    {{Form::open(array('route'=>array('penilaian-feedback', $penilaian->id), 'class'=>'form-horizontal'))}}
+      <div class="modal-body">
+      	<div class="form-group">
+		{{ Form::label('voter_comments', 'Komentar/Masukan dari Karyawan', array('class'=>'col-sm-4 control-label')) }}
+			<div class="input-group col-xs-6">
+				{{ Form::textarea('voter_comments', $penilaian->voter_comments, array('size'=>'30x4','class'=>'form-control input-sm', 'id'=>'voter_comments', 'required')) }}
+				<span class="help-block alert-danger">{{ $errors->first('voter_comments') }}</span>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+	{{Form::close()}}
+    </div>
+  </div>
 </div>
 
 {{HTML::style('assets/chosen/chosen.css')}}    

@@ -136,6 +136,33 @@ class PenilaianController extends BaseController {
 		} 
 	}
 
+	public function feedback($id)
+		{
+			$rules = array(
+				'voter_comments'=>'required'
+				);
+			$messages = array(
+				'required' => 'harus diisi!'
+			);
+			$validator = Validator::make(Input::all(), $rules, $messages);
+
+			if ($validator->fails()) 
+			{
+				return Redirect::back()->withErrors($validator)->withInput(Input::all());
+			}
+			else
+			{
+				$grade = Grade::find($id);
+				$grade->voter_comments = Input::get('voter_comments');
+				$grade->save();
+
+				Logevent::create(array('uid'=>Auth::user()->id, 'ip'=>Request::getClientIp(), 'object_type'=>'penilaian', 'object_action'=>'feedback', 'object_value'=>$grade->id, 'status'=>'success'));
+
+				Session::flash('message', 'Masukan berhasil disimpan');
+				return Redirect::back();
+			} 
+		}
+
 
 	public function destroy($id)
 	{

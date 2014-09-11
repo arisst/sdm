@@ -1,6 +1,8 @@
 <?php
 if(Auth::check()){
 	$count = (Notification::getUnread()) ? '('.Notification::getUnread().')' : '' ;
+}else{
+	$count = '';
 }
 ?>
 <html>

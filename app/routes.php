@@ -24,6 +24,8 @@ Route::group(array('before' => 'auth'), function()
 		Route::get('profile',array('as'=>'profile-form','uses'=>'AccountController@showProfile'));
 		Route::post('profile',array('as'=>'profile-submit','uses'=>'AccountController@doProfile'));
         
+		Route::post('penilaian/feedback/{id?}', array('as'=>'penilaian-feedback', 'uses'=>'PenilaianController@feedback'));
+		
 		Route::resource('users', 'UsersController');
 		Route::resource('cuti', 'CutiController');
 		Route::resource('dinas', 'DinasController');
