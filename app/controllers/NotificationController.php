@@ -17,7 +17,7 @@ class NotificationController extends BaseController {
 		if($notif->recepient_id==Auth::user()->id) //check credential
 		{
 			Notification::baca($id);
-			return Redirect::route($notif->object.'.show', $notif->object_id);
+			return Redirect::route($notif->object.'.show', array($notif->object_id, 'uid='.Crypt::encrypt($notif->sender_id)));
 		}
 		else
 		{

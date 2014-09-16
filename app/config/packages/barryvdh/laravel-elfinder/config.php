@@ -1,10 +1,10 @@
 <?php
-$path_home = (Auth::user()->level==1) ? 'files' : 'files/users/'.Auth::user()->id ;
+// $path_home = (Auth::user()->level==1) ? 'files' : 'files/users/'.Auth::user()->id ;
 
 $mount = array(
     array(
             'driver'        => 'LocalFileSystem', 
-            'path'          => $path_home, 
+            'path'          => 'files/users/'.Auth::user()->id, 
             'alias'         => Auth::user()->name,
             // 'accessControl' => 'users',
             'attributes' => array(

@@ -10,7 +10,17 @@
   <div class="panel-heading">Detail Cuti</div>
   <div class="panel-body">
   	@include('action', array('p' => 'Cuti', 'l'=>'cuti', 'a'=>'active'))
-<br><br>
+    {{ Form::open(array('route' => array('cuti.destroy',$c->id), 'class' => 'navbar-form navbar-right')) }}
+      @if(Auth::user()->level==1)
+        <a class="btn btn-sm btn-info" href="{{ URL::route('cuti.edit',$c->id) }}">
+          <span class="glyphicon glyphicon-edit"></span> Edit
+        </a>
+        {{ Form::hidden('_method', 'DELETE') }}
+        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini?');">
+          <span class="glyphicon glyphicon-trash"></span> Delete
+        </button>
+      @endif
+    {{ Form::close() }}
   <table class="table table-bordered">
       <tr>
         <th width="15%">Nama</th>
@@ -44,12 +54,37 @@
         <th>Catatan</th>
         <td>{{$c->note}}</td>
       </tr>
-      <tr>
-        <th>Created</th>
-        <td>{{$c->created_at}} Updated {{$c->updated_at}}</td>
+       <tr>
+        <th>Status</th>
+        <td>
+            @if($c->status==1)
+              <label class="label label-success">Disetujui</label>
+            @elseif ($c->status==2)
+              <label class="label label-warning">Ditolak</label>
+            @elseif ($c->status==0)
+              <label class="label label-default">Menunggu</label>
+            @endif
+        </td>
       </tr>
+      <tr>
+        <th>Waktu</th>
+        <td>Dibuat : {{$c->created_at}}, diperbarui : {{$c->updated_at}}</td>
+      </tr>
+    @if($c->status==0)
+      <tr class="hidden-print">
+        <th>Action</th>
+        <td>
+            <a class="btn btn-sm btn-success" href="{{ URL::route('agreement', array(Crypt::encrypt($c->id), 1)) }}" onclick="return confirm('Setujui pengajuan ini?');">
+              <span class="glyphicon glyphicon-ok"></span> Setujui
+            </a>
+            <a class="btn btn-sm btn-warning" href="{{ URL::route('agreement', array(Crypt::encrypt($c->id), 2)) }}" onclick="return confirm('Tolak pengajuan ini?');">
+              <span class="glyphicon glyphicon-remove"></span> Tolak
+            </a>
+        </td>
+      </tr>
+    @endif
     </table>
-
+    
   </div>
 </div>
 @stop

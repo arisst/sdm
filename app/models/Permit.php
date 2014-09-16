@@ -10,17 +10,24 @@ class Permit extends Eloquent
 		return $this->hasOne('User', 'id', 'uid');
 	}
 
+/*	public function agreement()
+		{
+			return $this->hasOne('Agreement', 'id', 'agreement_id');
+		}
+*/
 	/* Static Function */
 
-	public static function listing($types)
+	public static function listing($types, $search='')
 	{
 		$key = ($types=='lembur'||$types=='dinas') ? 'permits.propose_uid' : 'permits.auth_uid' ;
 
 		$t = DB::table('permits');
+		if($search) $t->orWhere('users.name', $search);
 		$t->join('users', 'permits.uid', '=', 'users.id');
+		$t->leftJoin('agreements', 'permits.id', '=', 'agreements.permit_id');
 		$t->leftJoin('users as users2', $key, '=', 'users2.id');
 		$t->leftJoin('divisions', 'users.division_id', '=', 'divisions.id');
-		$t->select(DB::raw('permits.*, concat(users.name, " - ", divisions.name) as name, concat(users2.name, " - ", users2.position) as name2'));
+		$t->select(DB::raw('permits.*, agreements.status, concat(users.name, " - ", divisions.name) as name, concat(users2.name, " - ", users2.position) as name2'));
 		$t->where('types','=',$types);
 		if(Auth::user()->level!=1)
 		{
@@ -36,19 +43,27 @@ class Permit extends Eloquent
 
 		$t = DB::table('permits');
 		$t->join('users', 'permits.uid', '=', 'users.id');
+		$t->leftJoin('agreements', 'permits.id', '=', 'agreements.permit_id');
 		$t->leftJoin('users as users2', $key, '=', 'users2.id');
 		$t->leftJoin('divisions', 'users.division_id', '=', 'divisions.id');
 		if($types=='dinas')
 		{
 			$t->leftJoin('users as users3', 'permits.auth_uid', '=', 'users3.id');
-			$t->select(DB::raw('permits.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name) as name2, concat(users3.name, " - ", users3.position) as name3'));
+			$t->select(DB::raw('permits.*, agreements.status, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name) as name2, concat(users3.name, " - ", users3.position) as name3'));
 		}
 		else
 		{
-			$t->select(DB::raw('permits.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, " - ", users2.position) as name2'));
+			$t->select(DB::raw('permits.*, agreements.status, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, " - ", users2.position) as name2'));
 		}
-		$t->where('types','=',$types);
-		$t->where('permits.id', '=', $id);
+		$t->where('types', $types);
+		$t->where('permits.id', $id);
+
+		if(Auth::user()->level!=1) 
+		{
+			$t->where('permits.auth_uid', Crypt::decrypt(Input::get('uid')));
+			$t->orWhere('permits.uid', Crypt::decrypt(Input::get('uid')));
+		}
+
 		return $t->first();
 	}
 	

@@ -51,7 +51,15 @@
 					<td>{{{ $value->name2 }}}</td>
 					<td>{{{ $value->start_date }}}</td>
 					<td>{{{ $value->finish_date }}}</td>
-					<td></td>
+					<td>
+						@if($value->status==1)
+							<label class="label label-success">Disetujui</label>
+						@elseif ($value->status==2)
+							<label class="label label-danger">Ditolak</label>
+						@elseif ($value->status==0)
+							<label class="label label-warning">Menunggu</label>
+						@endif
+					</td>
 					
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('dinas.destroy',$value->id), 'style' => 'margin-bottom:0')) }}

@@ -47,7 +47,15 @@
 					<td>{{{ $value->name }}}</td>
 					<td>{{{ $value->start_date }}}</td>
 					<td>{{{ $value->name2 }}}</td>
-					<td>{{{ '' }}}</td>
+					<td>
+						@if($value->status==1)
+							<label class="label label-success">Disetujui</label>
+						@elseif ($value->status==2)
+							<label class="label label-danger">Ditolak</label>
+						@elseif ($value->status==0)
+							<label class="label label-warning">Menunggu</label>
+						@endif
+					</td>
 					
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('libur.destroy',$value->id), 'style' => 'margin-bottom:0')) }}

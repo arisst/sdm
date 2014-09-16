@@ -14,7 +14,7 @@
 
     {{ Form::open(array('route'=>'cuti.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
-	    {{ Form::text('search', (isset($keyword)) ? $keyword : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search...','autofocus'))}}
+	    {{ Form::text('search', (Input::has('search')) ? Input::get('search') : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search Name'))}}
 	    <a href="{{ URL::route('cuti.index') }}" type="button" class="btn hidden-print btn-default btn-sm">
 		  <span class="glyphicon glyphicon-refresh"></span> Reset
 		</a>
@@ -48,10 +48,18 @@
 					<td>{{ $i }}</td>
 					<td>{{{ $value->name }}}</td>
 					<td>{{{ $value->task }}}</td>
-					<td width="9%">{{{ date("d-M-Y", strtotime($value->start_date)) }}}</td>
-					<td width="9%">{{{ date("d-M-Y", strtotime($value->finish_date)) }}}</td>
+					<td width="9%">{{{ date("d M y", strtotime($value->start_date)) }}}</td>
+					<td width="9%">{{{ date("d M y", strtotime($value->finish_date)) }}}</td>
 					<!-- <td>{{ date_diff(date_create($value->start_date), date_create($value->finish_date))->format("%a hari") }}</td> -->
-					<td>{{{ '' }}}</td>
+					<td>
+						@if($value->status==1)
+							<label class="label label-success">Disetujui</label>
+						@elseif ($value->status==2)
+							<label class="label label-warning">Ditolak</label>
+						@elseif ($value->status==0)
+							<label class="label label-default">Menunggu</label>
+						@endif
+					</td>
 					
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('cuti.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
@@ -74,6 +82,7 @@
 			@endforeach
 		</tbody>
 	</table>
+
 	<center class="hidden-print">
 	@if(isset($keyword))
 	{{ $permits->appends(array('search' => $keyword))->links() }}

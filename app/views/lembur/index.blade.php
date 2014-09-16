@@ -38,6 +38,7 @@
 				<th>Mulai</th>
 				<th>Sampai</th>
 				<th>Lintas Divisi</th>
+				<th>Status</th>
 				<th class="hidden-print">Actions</th>
 			</tr>
 		</thead>
@@ -55,6 +56,15 @@
 					@if($value->lintas_divisi) Ya
 					@else Tidak
 					@endif
+					</td>
+					<td>
+						@if($value->status==1)
+							<label class="label label-success">Disetujui</label>
+						@elseif ($value->status==2)
+							<label class="label label-danger">Ditolak</label>
+						@elseif ($value->status==0)
+							<label class="label label-warning">Menunggu</label>
+						@endif
 					</td>
 					
 					<td class="hidden-print">
