@@ -73,7 +73,10 @@ class DinasController extends \BaseController {
 	public function show($id)
 	{
 		$con = Permit::detail('dinas',$id);
-		return View::make('dinas.show')->with('c', $con);
+		$permnotif = Permit::with('notification')->find($id);
+		return View::make('dinas.show')
+					->with('c', $con)
+					->with('permnotif', $permnotif);
 	}
 
 	public function edit($id)

@@ -76,7 +76,10 @@ class LemburController extends \BaseController {
 	public function show($id)
 	{
 		$con = Permit::detail('lembur',$id);
-		return View::make('lembur.show')->with('c', $con);
+		$permnotif = Permit::with('notification')->find($id);
+		return View::make('lembur.show')
+					->with('c', $con)
+					->with('permnotif', $permnotif);
 	}
 
 	public function edit($id)

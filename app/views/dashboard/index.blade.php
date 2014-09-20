@@ -3,6 +3,13 @@
 
 @section('content')
 
+<?php 
+if(Auth::check()){
+$division = User::find(1)->division;
+	$atasan = User::getAtasan(Auth::user()->id);
+	$bawahan = User::getBawahan(Auth::user()->id);
+}
+ ?>
 	@if(Session::get('error'))
 		<div class="alert alert-danger fade in" role="alert">
 	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -13,8 +20,7 @@
 @if(Auth::check())
 	  <h2>Welcome {{{ Auth::user()->name }}} </h2>
 	  <div class="well">
-	  <h5>Profile</h5>
-	  	<table>
+	  	<table class="table table-considered">
 	  		<tr>
 	  			<td>Nama </td>
 	  			<td> : <b>{{{ Auth::user()->name }}}</b></td>
@@ -34,6 +40,22 @@
 	  		<tr>
 	  			<td>Jabatan</td>
 	  			<td> : <b>{{{ Auth::user()->position }}}</b></td>
+	  		</tr>
+	  		<tr>
+	  			<td>Atasan</td>
+	  			<td>  
+	  				@foreach ($atasan as $key)
+			         : <b>{{ HTML::linkRoute('users.show', $key->name.' - '.$key->division['name'].' - '.$key->position, array($key->id)) }} <br> </b>
+			        @endforeach
+        		</td>
+	  		</tr>
+	  		<tr>
+	  			<td>Bawahan</td>
+	  			<td>  
+	  				@foreach ($bawahan as $key)
+			         : <b>{{ HTML::linkRoute('users.show', $key->name.' - '.$key->division['name'].' - '.$key->position, array($key->id)) }} <br> </b>
+			        @endforeach
+        		</td>
 	  		</tr>
 	  		<tr>
 	  			<td>Password</td>

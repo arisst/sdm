@@ -10,11 +10,11 @@ class Permit extends Eloquent
 		return $this->hasOne('User', 'id', 'uid');
 	}
 
-/*	public function agreement()
-		{
-			return $this->hasOne('Agreement', 'id', 'agreement_id');
-		}
-*/
+	public function notification()
+	{
+		return $this->hasOne('Notification', 'object_id', 'id');
+	}
+
 	/* Static Function */
 
 	public static function listing($types, $search='')
@@ -58,10 +58,9 @@ class Permit extends Eloquent
 		$t->where('types', $types);
 		$t->where('permits.id', $id);
 
-		if(Auth::user()->level!=1) 
+		if(Auth::user()->level==3) 
 		{
-			$t->where('permits.auth_uid', Crypt::decrypt(Input::get('uid')));
-			$t->orWhere('permits.uid', Crypt::decrypt(Input::get('uid')));
+			$t->where('uid', Auth::user()->id);
 		}
 
 		return $t->first();

@@ -372,6 +372,7 @@ else if('edit'==$act)
 	{{ Form::close() }}
 </div>
 
+@if($act=='edit')
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -398,6 +399,7 @@ else if('edit'==$act)
     </div>
   </div>
 </div>
+@endif
 
 {{HTML::style('assets/chosen/chosen.css')}}    
 {{HTML::script('assets/chosen/chosen.jquery.js')}}    

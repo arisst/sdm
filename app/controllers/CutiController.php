@@ -73,7 +73,10 @@ class CutiController extends \BaseController {
 	public function show($id)
 	{
 		$con = Permit::detail('cuti', $id);
-		return View::make('cuti.show')->with('c', $con);
+		$permnotif = Permit::with('notification')->find($id);
+		return View::make('cuti.show')
+					->with('c', $con)
+					->with('permnotif', $permnotif);
 	}
 
 	public function edit($id)

@@ -9,7 +9,13 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Show {{{$user->name}}}</div>
   <div class="panel-body">
-  	@include('action', array('p' => 'User', 'l'=>'users', 'a'=>'active'))
+  	@if(Auth::user()->level==1) 
+      @include('action', array('p' => 'User', 'l'=>'users', 'a'=>'active'))
+    @else
+      <a href="{{ URL::previous() }}" type="button" class="btn btn-default hidden-print btn-sm">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back 
+      </a>
+    @endif
 <br><br>
 <div class="col-md-6">
 <table class="table table-bordered">

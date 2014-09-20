@@ -32,7 +32,7 @@
           @endif
     			</ul>
     			<div style="text-align:right;">
-    				<p class="navbar-text navbar-right"><a href="{{URL::to('profile')}}">Profile</a> 
+    				<p class="navbar-text navbar-right"><a href="{{URL::to('profile')}}">{{Auth::user()->name}}</a>  |
     				<a href="{{ URL::to('logout') }}">Logout</a></p><p class="navbar-text navbar-right">{{--Auth::user()->nama--}}</p>
     			</div>
         @else

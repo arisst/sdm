@@ -26,7 +26,31 @@
     	<li class="list-group-item">Created : <b>{{$c->created_at}}</b></li>
     	<li class="list-group-item">Updated : <b>{{$c->updated_at}}</b></li>
   	</ul>
-
+    <tr>
+        <th>Status</th>
+        <td>
+            @if($c->status==1)
+              <label class="label label-success">Disetujui</label>
+            @elseif ($c->status==2)
+              <label class="label label-warning">Ditolak</label>
+            @elseif ($c->status==0)
+              <label class="label label-default">Menunggu</label>
+            @endif
+        </td>
+      </tr>
+@if($c->status==0 && $permnotif->notification['recepient_id']==Auth::user()->id)
+      <tr class="hidden-print">
+        <th>Action</th>
+        <td>
+            <a class="btn btn-sm btn-success" href="{{ URL::route('agreement', array('dinas', $c->uid, Crypt::encrypt($c->id), 1)) }}" onclick="return confirm('Setujui pengajuan ini?');">
+              <span class="glyphicon glyphicon-ok"></span> Setujui
+            </a>
+            <a class="btn btn-sm btn-warning" href="{{ URL::route('agreement', array('dinas', $c->uid, Crypt::encrypt($c->id), 2)) }}" onclick="return confirm('Tolak pengajuan ini?');">
+              <span class="glyphicon glyphicon-remove"></span> Tolak
+            </a>
+        </td>
+      </tr>
+    @endif
   </div>
 </div>
 @stop

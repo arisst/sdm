@@ -10,18 +10,26 @@ class BaseController extends Controller {
 		}
 	}
 
-	public function agreement($permit_id, $status)
+	public function agreement($permit, $uid, $permit_id, $status)
 	{
+		$permit_id = Crypt::decrypt($permit_id);
 		if (Auth::user()->level!=3) 
 		{
-			$agreement = Agreement::create(array('user_id'=>Auth::user()->id, 'permit_id'=>Crypt::decrypt($permit_id), 'status'=>$status));
+			$agreement = Agreement::create(array('user_id'=>Auth::user()->id, 'permit_id'=>$permit_id, 'status'=>$status));
 
 			Logevent::write('agreement', 'set', $agreement->id);
 
-			// Notification::kirim('mengajukan', 'cuti', $permit->id);
+			$activity = ($status==1) ? 'menyetujui' : 'menolak' ;
+			Notification::kirim($activity, $permit, $permit_id, $uid);
 
 			return Redirect::back();
 		}
+	}
+
+	public function logview()
+	{
+		return Response::json(Logevent::orderBy('id', 'desc')->get());
+		// return gethostbyaddr(Request::getClientIp());
 	}
 
 }

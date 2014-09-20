@@ -25,7 +25,7 @@ class Logevent extends Eloquent
 		self::create(
 			array(
 				'uid'=>Auth::user()->id, 
-				'ip'=>Request::getClientIp(), 
+				'ip'=>Request::getClientIp(),
 				'object_type'=>$object_type, 
 				'object_action'=>$object_action, 
 				'object_value'=>$object_value, 

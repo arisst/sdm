@@ -47,7 +47,7 @@
 				<tr>
 					<td>{{ $i }}</td>
 					<td>{{{ $value->name }}}</td>
-					<td>{{{ $value->task }}}</td>
+					<td>{{ HTML::linkRoute('cuti.show', $value->task, $value->id) }}</td>
 					<td width="9%">{{{ date("d M y", strtotime($value->start_date)) }}}</td>
 					<td width="9%">{{{ date("d M y", strtotime($value->finish_date)) }}}</td>
 					<!-- <td>{{ date_diff(date_create($value->start_date), date_create($value->finish_date))->format("%a hari") }}</td> -->

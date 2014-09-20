@@ -76,7 +76,10 @@ class LiburController extends \BaseController {
 	public function show($id)
 	{
 		$con = Permit::detail('libur', $id);
-		return View::make('libur.show')->with('c', $con);
+		$permnotif = Permit::with('notification')->find($id);
+		return View::make('libur.show')
+					->with('c', $con)
+					->with('permnotif', $permnotif);
 	}
 
 	public function edit($id)

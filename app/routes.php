@@ -5,8 +5,7 @@ Route::get('logout', array('as'=>'logout','uses'=>'AccountController@doLogout'))
 
 Route::get('/', array('as'=>'index',function()
 {
-	$division = User::find(1)->division;
-	return View::make('dashboard.index', array('division'=>$division));
+	return View::make('dashboard.index');
 }));
 
 Route::group(array('before' => 'auth'), function()
@@ -21,7 +20,9 @@ Route::group(array('before' => 'auth'), function()
 		Route::get('notification/read/{id?}', array('as'=>'notificationread', 'uses'=>'NotificationController@read'));
 		Route::get('notification/go/{id?}', array('as'=>'notificationgo', 'uses'=>'NotificationController@pergi'));
 
-		Route::get('agreement/{permit_id?}/{status?}', array('as'=>'agreement', 'uses'=>'BaseController@agreement'));
+		Route::get('agreement/{permit?}.{uid?}.{permit_id?}.{status?}', array('as'=>'agreement', 'uses'=>'BaseController@agreement'));
+
+		Route::get('log', 'BaseController@logview');
 
 		Route::get('profile',array('as'=>'profile-form','uses'=>'AccountController@showProfile'));
 		Route::post('profile',array('as'=>'profile-submit','uses'=>'AccountController@doProfile'));
