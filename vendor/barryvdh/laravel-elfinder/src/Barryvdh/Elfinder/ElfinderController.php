@@ -4,7 +4,7 @@ namespace Barryvdh\Elfinder;
 use Config;
 use View;
 
-class ElfinderController extends \BaseController
+class ElfinderController extends \Controller
 {
     protected $package = 'laravel-elfinder';
 
@@ -23,6 +23,7 @@ class ElfinderController extends \BaseController
     {
         $dir = 'packages/barryvdh/' . $this->package;
         $locale = Config::get('app.locale');
+        
         if (!file_exists(public_path() . "/$dir/js/i18n/elfinder.$locale.js"))
         {
             $locale = false;
@@ -34,11 +35,13 @@ class ElfinderController extends \BaseController
     {
         $dir = 'packages/barryvdh/' . $this->package;
         $locale = Config::get('app.locale');
+        $csrf = Config::get($this->package . '::csrf');
+        
         if (!file_exists(public_path() . "/$dir/js/i18n/elfinder.$locale.js"))
         {
             $locale = false;
         }
-        return View::make($this->package . '::tinymce4')->with(compact('dir', 'locale'));
+        return View::make($this->package . '::tinymce4')->with(compact('dir', 'locale','csrf'));
     }
 
     public function showCKeditor4()
@@ -78,5 +81,17 @@ class ElfinderController extends \BaseController
         // run elFinder
         $connector = new \elFinderConnector(new \elFinder($opts));
         $connector->run();
+    }
+
+    public function showPopup($input_id)
+    {
+        $dir = 'packages/barryvdh/' . $this->package;
+        $locale = \Config::get('app.locale');
+        if ( ! file_exists(public_path() . "/$dir/js/i18n/elfinder.$locale.js"))
+        {
+            $locale = false;
+        }
+
+        return \View::make($this->package . '::standalonepopup')->with(compact('dir', 'locale', 'input_id'));
     }
 }

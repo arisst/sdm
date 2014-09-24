@@ -24,9 +24,9 @@
           @if(Auth::user()->level!=3)
             <li class="{{ Request::is('lembur*') ? 'active' : '' }}">{{ HTML::link('lembur', 'Lembur') }}</li>
             <li class="{{ Request::is('dinas*') ? 'active' : '' }}">{{ HTML::link('dinas', 'Dinas') }}</li>
-            @if(Auth::user()->level!=4)
-            <li class="{{ Request::is('users*') ? 'active' : '' }}">{{ HTML::link('users', 'User') }}</li>
             <li class="{{ Request::is('penilaian*') ? 'active' : '' }}">{{ HTML::link('penilaian', 'Penilaian') }}</li>
+            @if(Auth::user()->level==1)
+            <li class="{{ Request::is('users*') ? 'active' : '' }}">{{ HTML::link('users', 'User') }}</li>
     			  <li class="{{ Request::is('division*') ? 'active' : '' }}">{{ HTML::link('division', 'Divisi') }}</li>
             @endif
           @endif

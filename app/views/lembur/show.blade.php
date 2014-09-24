@@ -7,27 +7,24 @@
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Show {{{$c->name}}}</div>
+  <div class="panel-heading">Detail pengajuan lembur</div>
   <div class="panel-body">
   	@include('action', array('p' => 'Lembur', 'l'=>'lembur', 'a'=>'active'))
 <br><br>
-  	<ul class="list-group">
-      <li class="list-group-item list-group-item-info">Detail pengajuan lembur : </li>
-      <li class="list-group-item">Penanggung Jawab : <b>{{{$c->name}}}</b></li>
-      <li class="list-group-item">Kegiatan : <b>{{{$c->task}}}</b></li>
-      <li class="list-group-item list-group-item-warning">Mengajukan lembur bagi : </li>
-    	<li class="list-group-item">Nama : <b>{{{$c->name2}}}</b></li>
-      <li class="list-group-item">Tugas : <b>{{{$c->address}}}</b></li>
-    	<li class="list-group-item">Lokasi : <b>{{{$c->venue}}}</b></li>
-      <li class="list-group-item">Mulai : <b>{{{$c->start_date}}}</b></li>
-      <li class="list-group-item">Sampai : <b>{{{$c->finish_date}}}</b></li>
-      <li class="list-group-item">Jumlah Transport : <b>{{{$c->transportasi}}}</b></li>
-      <li class="list-group-item">Jumlah Uang Makan : <b>{{{$c->makan}}}</b></li>
-      <li class="list-group-item">Lintas Divisi : <b> @if($c->lintas_divisi) Ya @else Tidak @endif</b></li>
-    	<li class="list-group-item">Catatan SDM: <b>{{{$c->note}}}</b></li>
-    	<li class="list-group-item">Created : <b>{{$c->created_at}}</b></li>
-    	<li class="list-group-item">Updated : <b>{{$c->updated_at}}</b></li>
-  	</ul>
+  	<table class="table table-bordered">
+      <tr><th width="15%">Penanggung Jawab</th><td>{{{$c->name}}}</td></tr>
+      <tr><th>Kegiatan</th><td>{{{$c->task}}}</td></tr>
+      <tr><td colspan="2"><em>Mengajukan lembur bagi</em></td></tr>
+    	<tr><th>Nama</th><td>{{{$c->name2}}}</td></tr>
+      <tr><th>Tugas</th><td>{{{$c->address}}}</td></tr>
+    	<tr><th>Lokasi</th><td>{{{$c->venue}}}</td></tr>
+      <tr><th>Mulai</th><td>{{{Permit::tanggal($c->start_date, 'l, d F Y H:i')}}}</td></tr>
+      <tr><th>Sampai</th><td>{{{Permit::tanggal($c->finish_date, 'l, d F Y H:i')}}}</td></tr>
+      <tr><th>Jumlah Transport</th><td>{{{$c->transportasi}}}</td></tr>
+      <tr><th>Jumlah Uang Makan</th><td>{{{$c->makan}}}</td></tr>
+      <tr><th>Lintas Divisi</th><td> @if($c->lintas_divisi) Ya @else Tidak @endif</td></tr>
+    	<tr><th>Catatan SDM </th><td>{{{$c->note}}}</td></tr>
+    	<tr><th>Waktu </th><td>Dibuat: {{Permit::tanggal($c->created_at, 'l, d F Y H:i:s')}}</td></tr>
     <tr>
         <th>Status</th>
         <td>
@@ -53,6 +50,7 @@
         </td>
       </tr>
     @endif
+    </table>
   </div>
 </div>
 @stop

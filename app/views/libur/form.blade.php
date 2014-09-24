@@ -33,13 +33,13 @@ else if('edit'==$act)
 @endif
 
 	<div class="form-group">
-		{{ Form::label('uid', 'Nama/Divisi/Jabatan', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('uid', 'Nama/Divisi/Jabatan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 		@if(Auth::user()->level==3)
 			{{ Form::text('nama', Auth::user()->name.' - '.Auth::user()->division['name'].' - '.Auth::user()->position, array('class'=>'form-control input-sm', 'id'=>'nama', 'placeholder'=>'Nama Lengkap', 'data-provide'=>'typeahead','readonly')) }}
 			{{ Form::hidden('uid', Auth::user()->id) }}
 		@else
-			{{ Form::select('uid', array(''=>'- Pilih -') + $auth_option, Input::old('uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'uid', 'required'))}}
+			{{ Form::select('uid', array(''=>'- Pilih -') + $auth_option, Input::old('uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'uid'))}}
 		@endif
 		<span class="help-block alert-danger">{{ $errors->first('uid') }}</span>
 		</div>
@@ -50,7 +50,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('task', 'Nama Kegiatan', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('task', 'Nama Kegiatan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group date col-xs-6" id="task">
 			{{ Form::text('task', Input::old('task'), array('class'=>'form-control input-sm', 'id'=>'task', 'placeholder'=>'Nama Kegiatan', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('task') }}</span>
@@ -58,7 +58,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('transportasi', 'Lama Kegiatan', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('transportasi', 'Lama Kegiatan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('transportasi', Input::old('transportasi'), array('class'=>'form-control input-sm', 'id'=>'transportasi', 'placeholder'=>'Lama Kegiatan', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('transportasi') }}</span>
@@ -66,7 +66,7 @@ else if('edit'==$act)
 	</div>
 	
 	<div class="form-group">
-	{{ Form::label('start_work', 'Tanggal Kegiatan', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('start_work', 'Tanggal Kegiatan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="start_work" data-date-format="YYYY-MM-DD">
 			{{ Form::text('start_work', Input::old('start_work'), array('class'=>'form-control input-sm', 'id'=>'start_work', 'placeholder'=>'Tanggal Kegiatan', 'required')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -75,7 +75,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('venue', 'Tempat', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('venue', 'Tempat *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('venue', Input::old('venue'), array('class'=>'form-control input-sm', 'id'=>'venue', 'placeholder'=>'Tempat', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('venue') }}</span>
@@ -87,7 +87,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('start_date', 'Tanggal', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('start_date', 'Tanggal *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="start_date" data-date-format="YYYY-MM-DD">
 			{{ Form::text('start_date', Input::old('start_date'), array('class'=>'form-control input-sm', 'id'=>'start_date', 'placeholder'=>'Tanggal', 'required')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -96,7 +96,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('address', 'Alamat', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('address', 'Alamat *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::textarea('address', Input::old('address'), array('class'=>'form-control input-sm', 'id'=>'address', 'placeholder'=>'Alamat / Telepon selama libur', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('address') }}</span>
@@ -108,10 +108,10 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('auth_uid', 'Wewenang kepada', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('auth_uid', 'Wewenang kepada *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{-- Form::text('auth_uid', Input::old('auth_uid'), array('class'=>'form-control input-sm', 'id'=>'auth_uid', 'placeholder'=>'Wewenang selama libur diserahkan kepada', 'required', 'autofocus')) --}}
-			{{ Form::select('auth_uid', array(''=>'- Pilih -') + $auth_option, Input::old('auth_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'auth_uid', 'required'))}}
+			{{ Form::select('auth_uid', array(''=>'- Pilih -') + $auth_option, Input::old('auth_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'auth_uid'))}}
 		<span class="help-block alert-danger">{{ $errors->first('auth_uid') }}</span>
 		</div>
 	</div>
@@ -126,7 +126,9 @@ else if('edit'==$act)
 
 	<div class="form-group">
 		<div class="col-sm-offset-2">
+		<div>(*) wajib diisi</div>
 			<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
+			<a type="button" href="{{URL::previous()}}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 		</div>
 	</div>
 

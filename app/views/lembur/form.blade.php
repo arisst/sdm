@@ -42,7 +42,7 @@ else if('edit'==$act)
 @endif
 
 	<div class="form-group">
-		{{ Form::label('pengaju', 'Penangguna Jawab', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('pengaju', 'Penangguna Jawab *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('pengaju', Auth::user()->name, array('class'=>'form-control input-sm', 'id'=>'pengaju', 'disabled')) }}
 			{{ Form::hidden('uid', Auth::user()->id)}}
@@ -50,7 +50,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('task', 'Kegiatan', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('task', 'Kegiatan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="task">
 			{{ Form::text('task', Input::old('task'), array('class'=>'form-control input-sm', 'id'=>'task', 'placeholder'=>'Kegiatan', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('task') }}</span>
@@ -62,15 +62,15 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('propose_uid', 'Nama', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('propose_uid', 'Nama *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::select('propose_uid', array(''=>'- Pilih -') + $auth_option, Input::old('propose_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'propose_uid', 'required'))}}
+			{{ Form::select('propose_uid', array(''=>'- Pilih -') + $auth_option, Input::old('propose_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'propose_uid'))}}
 		<span class="help-block alert-danger">{{ $errors->first('propose_uid') }}</span>
 		</div>
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('address', 'Tugas', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('address', 'Tugas *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="address">
 			{{ Form::textarea('address', Input::old('address'), array('class'=>'form-control input-sm', 'id'=>'address', 'placeholder'=>'Tugas', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('address') }}</span>
@@ -78,7 +78,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('venue', 'Lokasi', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('venue', 'Lokasi *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('venue', Input::old('venue'), array('class'=>'form-control input-sm', 'id'=>'venue', 'placeholder'=>'Lokasi', 'required')) }}
 			<span class="help-block alert-danger">{{ $errors->first('venue') }}</span>
@@ -86,7 +86,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('start_date', 'Waktu Mulai', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('start_date', 'Waktu Mulai *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="start_date" data-date-format="YYYY-MM-DD HH:mm">
 			{{ Form::text('start_date', Input::old('start_date'), array('class'=>'form-control input-sm', 'id'=>'start_date', 'placeholder'=>'Waktu Mulai', 'required')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -95,7 +95,7 @@ else if('edit'==$act)
 	</div>
 	
 	<div class="form-group">
-	{{ Form::label('finish_date', 'Waktu Sampai', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('finish_date', 'Waktu Sampai *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6" id="finish_date" data-date-format="YYYY-MM-DD H:mm">
 			{{ Form::text('finish_date', Input::old('finish_date'), array('class'=>'form-control input-sm', 'id'=>'finish_date', 'placeholder'=>'Waktu Sampai', 'required')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -104,7 +104,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('lintas_divisi', 'Lintas Divisi', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('lintas_divisi', 'Lintas Divisi *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			<div class="radio">
 			  <label>{{Form::radio('lintas_divisi', '1')}} Ya </label>
@@ -117,7 +117,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('transportasi', 'Transportasi', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('transportasi', 'Transportasi *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 		<span class="input-group-addon">Rp.</span>
 			{{ Form::text('transportasi', Input::old('transportasi'), array('class'=>'form-control input-sm', 'id'=>'transportasi', 'placeholder'=>'Transportasi')) }}
@@ -126,7 +126,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('makan', 'Uang Makan', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('makan', 'Uang Makan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 		<span class="input-group-addon">Rp.</span>
 			{{ Form::text('makan', Input::old('makan'), array('class'=>'form-control input-sm', 'id'=>'makan', 'placeholder'=>'Uang Makan')) }}
@@ -145,7 +145,9 @@ else if('edit'==$act)
 
 	<div class="form-group">
 		<div class="col-sm-offset-2">
+		<div>(*) wajib diisi</div>
 			<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
+			<a type="button" href="{{URL::previous()}}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 		</div>
 	</div>
 

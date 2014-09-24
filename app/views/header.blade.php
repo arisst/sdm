@@ -8,6 +8,7 @@ if(Auth::check()){
 <html>
 <head>
   <title> {{$count}} @yield('title') | SDM Komnas Perempuan</title>
+  <link rel="shortcut icon" href="assets/favicon.ico">
 
   {{HTML::style('assets/bootstrap/css/bootstrap.min.css')}}    
   {{HTML::style('assets/bootstrap/css/datetimepicker.css')}}    

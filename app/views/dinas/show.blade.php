@@ -7,25 +7,22 @@
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Show {{{$c->name}}}</div>
+  <div class="panel-heading">Detail Pengajuan Dinas</div>
   <div class="panel-body">
   	@include('action', array('p' => 'Dinas', 'l'=>'dinas', 'a'=>'active'))
 <br><br>
-  	<ul class="list-group">
-      <li class="list-group-item list-group-item-info">Detail pengajuan dinas : </li>
-      <li class="list-group-item">Penanggung Jawab : <b>{{{$c->name}}}</b></li>
-      <li class="list-group-item">Kegiatan : <b>{{{$c->task}}}</b></li>
-      <li class="list-group-item list-group-item-warning">Mengajukan dinas bagi : </li>
-    	<li class="list-group-item">Nama : <b>{{{$c->name2}}}</b></li>
-      <li class="list-group-item">Tugas : <b>{{{$c->address}}}</b></li>
-    	<li class="list-group-item">Lokasi : <b>{{{$c->venue}}}</b></li>
-      <li class="list-group-item">Mulai : <b>{{{$c->start_date}}}</b></li>
-      <li class="list-group-item">Sampai : <b>{{{$c->finish_date}}}</b></li>
-      <li class="list-group-item">Wewenang kepada : <b>{{{$c->name3}}}</b></li>
-      <li class="list-group-item">Pekerjaan yang dialihkan : <b>{{{$c->auth_task}}}</b></li>
-    	<li class="list-group-item">Created : <b>{{$c->created_at}}</b></li>
-    	<li class="list-group-item">Updated : <b>{{$c->updated_at}}</b></li>
-  	</ul>
+  	<table class="table table-bordered">
+      <tr><th width="20%">Penanggung Jawab</th><td>{{{$c->name}}}</td></tr>
+      <tr><th>Kegiatan </th><td>{{{$c->task}}}</td></tr>
+      <tr><td colspan="2"><em>Mengajukan dinas bagi</li>
+    	<tr><th>Nama</th><td>{{{$c->name2}}}</td></tr>
+      <tr><th>Tugas</th><td>{{{$c->address}}}</td></tr>
+    	<tr><th>Lokasi</th><td>{{{$c->venue}}}</td></tr>
+      <tr><th>Mulai</th><td>{{{Permit::tanggal($c->start_date, 'l, d F Y H:i')}}}</td></tr>
+      <tr><th>Sampai</th><td>{{{Permit::tanggal($c->finish_date, 'l, d F Y H:i')}}}</td></tr>
+      <tr><th>Wewenang kepada</th><td>{{{$c->name3}}}</td></tr>
+      <tr><th>Pekerjaan yang dialihkan</th><td>{{{$c->auth_task}}}</td></tr>
+    	<tr><th>Waktu</th><td>Dibuat : {{Permit::tanggal($c->created_at, 'l, d F Y H:i:s')}}</td></tr>
     <tr>
         <th>Status</th>
         <td>

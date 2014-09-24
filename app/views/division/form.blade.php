@@ -40,6 +40,7 @@ else if('edit'==$act)
 	<div class="form-group">
 		<div class="col-sm-offset-2">
 			<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
+			<a type="button" href="{{URL::previous()}}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 		</div>
 	</div>
 

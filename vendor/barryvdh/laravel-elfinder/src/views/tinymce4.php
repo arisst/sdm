@@ -29,10 +29,10 @@
             },
             mySubmit: function (URL) {
                 // pass selected file path to TinyMCE
-                top.tinymce.activeEditor.windowManager.getParams().setUrl(URL);
+                parent.tinymce.activeEditor.windowManager.getParams().setUrl(URL);
 
                 // close popup window
-                top.tinymce.activeEditor.windowManager.close();
+                parent.tinymce.activeEditor.windowManager.close();
             }
         }
 
@@ -41,6 +41,9 @@
                 // set your elFinder options here
                 <?php if($locale){ ?>
                     lang: '<?= $locale ?>', // locale
+                <?php } ?>
+                <?php if($csrf){ ?>
+                customData: { _token:  '<?php echo csrf_token(); ?>' },
                 <?php } ?>
                 url: '<?= URL::action('Barryvdh\Elfinder\ElfinderController@showConnector') ?>',  // connector URL
                 getFileCallback: function(file) { // editor callback

@@ -45,7 +45,7 @@
 				<tr>
 					<td>{{ $i }}</td>
 					<td>{{{ $value->name }}}</td>
-					<td>{{{ $value->start_date }}}</td>
+					<td>{{{ Permit::tanggal($value->start_date, 'd M Y') }}}</td>
 					<td>{{{ $value->name2 }}}</td>
 					<td>
 						@if($value->status==1)
@@ -60,15 +60,15 @@
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('libur.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
 							<a class="btn btn-xs btn-success" href="{{ URL::route('libur.show', $value->id) }}">
-								<span class="glyphicon glyphicon-eye-open"></span>View
+								<span class="glyphicon glyphicon-eye-open"></span>
 							</a>
 						@if(Auth::user()->level==1)
 							<a class="btn btn-xs btn-info" href="{{ URL::route('libur.edit',$value->id) }}">
-								<span class="glyphicon glyphicon-edit"></span> Edit
+								<span class="glyphicon glyphicon-edit"></span> 
 							</a>
 							{{ Form::hidden('_method', 'DELETE') }}
 							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
-								<span class="glyphicon glyphicon-trash"></span> Delete
+								<span class="glyphicon glyphicon-trash"></span> 
 							</button>
 						@endif
 						{{ Form::close() }}

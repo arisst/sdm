@@ -7,26 +7,24 @@
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Formulir Libur Kompensasi {{{$c->name}}}</div>
+  <div class="panel-heading">Formulir Libur Kompensasi</div>
   <div class="panel-body">
   	@include('action', array('p' => 'Libur', 'l'=>'libur', 'a'=>'active'))
 <br><br>
-  	<ul class="list-group">
-      <li class="list-group-item list-group-item-info">Formulir Libur Kompensasi : </li>
-      <li class="list-group-item">Nama : <b>{{{$c->name}}}</b></li>
-      <li class="list-group-item list-group-item-warning">Mengajukan libur kompensasi setelah melaksanakan kegiatan : </li>
-      <li class="list-group-item">Nama Kegiatan : <b>{{{$c->task}}}</b></li>
-      <li class="list-group-item">Lama Kegiatan : <b>{{{$c->transportasi}}}</b></li>
-      <li class="list-group-item">Tanggal Kegiatan : <b>{{{$c->start_work}}}</b></li>
-      <li class="list-group-item">Tempat : <b>{{{$c->venue}}}</b></li>
-      <li class="list-group-item list-group-item-warning">Mengajukan libur kompensasi pada : </li>
-      <li class="list-group-item">Tanggal : <b>{{{$c->start_date}}}</b></li>
-      <li class="list-group-item">Alamat Selama Libur : <br><b>{{{$c->address}}}</b></li>
-      <li class="list-group-item list-group-item-warning">Selama libur wewenang diserahkan kepada : </li>
-      <li class="list-group-item">Wewenang Kepada : <b>{{{$c->name2}}}</b></li>
-    	<li class="list-group-item">Catatan : <b>{{{$c->note}}}</b></li>
-    	<li class="list-group-item list-group-item-warning">Created : {{$c->created_at}}</li>
-  	</ul>
+  	<table class="table table-bordered">
+      <tr><th width="15%">Nama</th><td>{{{$c->name}}}</td></tr>
+      <tr><td colspan="2"><em>Mengajukan libur kompensasi setelah melaksanakan kegiatan</em></td></tr>
+      <tr><th>Nama Kegiatan</th><td>{{{$c->task}}}</td></tr>
+      <tr><th>Lama Kegiatan</th><td>{{{$c->transportasi}}}</td></tr>
+      <tr><th>Tanggal Kegiatan</th><td>{{{ Permit::tanggal($c->start_work, 'l, d F Y')}}}</td></tr>
+      <tr><th>Tempat</th><td>{{{$c->venue}}}</td></tr>
+      <tr><td colspan="2"><em>Mengajukan libur kompensasi pada </em></td></tr>
+      <tr><th>Tanggal</th><td>{{{Permit::tanggal($c->start_date, 'l, d F Y')}}}</td></tr>
+      <tr><th>Alamat Selama Libur</th><td>{{{$c->address}}}</td></tr>
+      <tr><td colspan="2"><em>Selama libur wewenang diserahkan kepada</em></td></tr>
+      <tr><th>Wewenang Kepada</th><td>{{{$c->name2}}}</td></tr>
+    	<tr><th>Catatan </th><td>{{{$c->note}}}</td></tr>
+    	<tr><th>Waktu</th><td>Dibuat : {{Permit::tanggal($c->created_at, 'l, d F Y H:i:s')}}</td></tr>
     <tr>
         <th>Status</th>
         <td>
@@ -52,6 +50,7 @@
         </td>
       </tr>
     @endif
+  	</table>
   </div>
 </div>
 @stop

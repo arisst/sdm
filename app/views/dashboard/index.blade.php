@@ -22,7 +22,7 @@ $division = User::find(1)->division;
 	  <div class="well">
 	  	<table class="table table-considered">
 	  		<tr>
-	  			<td>Nama </td>
+	  			<td width="10%">Nama </td>
 	  			<td> : <b>{{{ Auth::user()->name }}}</b></td>
 	  		</tr>
 	  		<tr>
@@ -65,13 +65,8 @@ $division = User::find(1)->division;
 	  	</table>
 	  </div>
 @else
-	  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+	  <p>Gunakan dengan sebaik-baiknya, segala aktifitas pada aplikasi ini akan disimpan di log sistem.</p>
+	  <p><a class="btn btn-primary btn-lg" role="button">Bantuan</a></p>
 @endif
 	</div>
 

@@ -77,10 +77,10 @@ else if('edit'==$act)
 @endif
 
 	<div class="form-group">
-		{{ Form::label('voter_uid', 'Nama', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('voter_uid', 'Nama *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 		@if(Auth::user()->level!=3)
-			{{ Form::select('voter_uid', array(''=>'- Pilih -') + $auth_option, Input::old('voter_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'voter_uid', 'required'))}}
+			{{ Form::select('voter_uid', array(''=>'- Pilih -') + $auth_option, Input::old('voter_uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'voter_uid'))}}
 				<span class="help-block alert-danger">{{ $errors->first('voter_uid') }}</span>
 		@else
 			{{ Form::text('voter_uid', Auth::user()->name.' - '.Auth::user()->division['name'].' - '.Auth::user()->position, array('class'=>'form-control', 'id'=>'voter_uid', 'readonly')) }}		
@@ -89,7 +89,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('masuk_kerja', 'Tanggal Masuk Kerja', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('masuk_kerja', 'Tanggal Masuk Kerja *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group date col-xs-6" id="masuk_kerja" data-date-format="YYYY-MM-DD">
 			{{ Form::text('masuk_kerja', Input::old('masuk_kerja'), array('class'=>'form-control input-sm', 'id'=>'masuk_kerja', 'placeholder'=>'Tanggal Masuk Kerja', $attr)) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -98,7 +98,7 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('periode', 'Periode', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('periode', 'Periode *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group date col-xs-6">
 			{{ Form::text('periode', Input::old('periode'), array('class'=>'form-control input-sm', 'id'=>'periode', 'placeholder'=>'Periode', $attr)) }}
 			<span class="help-block alert-danger">{{ $errors->first('periode') }}</span>
@@ -362,6 +362,7 @@ else if('edit'==$act)
 		@endif
 @elseif($act=='add')
 	<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
+	<a type="button" href="{{URL::previous()}}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 @endif
 			<a class="btn btn-sm btn-default" href="{{URL::previous()}}">
 				<span class="glyphicon glyphicon-share"></span> Back

@@ -65,5 +65,11 @@ class Permit extends Eloquent
 
 		return $t->first();
 	}
+
+	public static function tanggal($date, $format)
+	{
+		$tgl = new Date($date);
+		return $tgl->format($format);
+	}
 	
 }

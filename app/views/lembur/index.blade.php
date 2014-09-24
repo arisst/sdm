@@ -32,9 +32,9 @@
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Penanggung Jawab</th>
-				<th>Kegiatan</th>
 				<th>Nama</th>
+				<th>Kegiatan</th>
+				<!-- <th>Nama</th> -->
 				<th>Mulai</th>
 				<th>Sampai</th>
 				<th>Lintas Divisi</th>
@@ -47,11 +47,11 @@
 			@foreach($permits as $key => $value)
 				<tr>
 					<td>{{ $i }}</td>
-					<td>{{{ $value->name }}}</td>
-					<td>{{{ $value->task }}}</td>
 					<td>{{{ $value->name2 }}}</td>
-					<td>{{{ $value->start_date }}}</td>
-					<td>{{{ $value->finish_date }}}</td>
+					<td>{{{ $value->task }}}</td>
+					<!-- <td>{{{ $value->name2 }}}</td> -->
+					<td>{{{ Permit::tanggal($value->start_date, 'l, d/m/Y H:i') }}}</td>
+					<td>{{{ Permit::tanggal($value->finish_date, 'l, d/m/Y H:i') }}}</td>
 					<td>
 					@if($value->lintas_divisi) Ya
 					@else Tidak
@@ -70,15 +70,15 @@
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('lembur.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
 							<a class="btn btn-xs btn-success" href="{{ URL::route('lembur.show', $value->id) }}">
-								<span class="glyphicon glyphicon-eye-open"></span>View
+								<span class="glyphicon glyphicon-eye-open"></span>
 							</a>
 						@if(Auth::user()->level==1)
 							<a class="btn btn-xs btn-info" href="{{ URL::route('lembur.edit',$value->id) }}">
-								<span class="glyphicon glyphicon-edit"></span> Edit
+								<span class="glyphicon glyphicon-edit"></span> 
 							</a>
 							{{ Form::hidden('_method', 'DELETE') }}
 							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
-								<span class="glyphicon glyphicon-trash"></span> Delete
+								<span class="glyphicon glyphicon-trash"></span> 
 							</button>
 						@endif
 						{{ Form::close() }}

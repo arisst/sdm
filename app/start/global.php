@@ -49,7 +49,23 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
-	// return 'NOT FOUND';
+	// switch ($code)
+ //    {
+ //    	case 401:
+ //            return Response::view('errors.401', array(), 401);
+
+ //        case 403:
+ //            return Response::view('errors.403', array(), 403);
+
+ //        case 404:
+ //            return Response::view('errors.404', array(), 404);
+
+ //        case 500:
+ //            return Response::view('errors.500', array(), 500);
+
+ //        default:
+ //            return Response::view('errors.default', array(), $code);
+ //    }
 });
 
 /*

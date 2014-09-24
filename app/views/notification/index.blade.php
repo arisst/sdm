@@ -25,7 +25,7 @@
 				<th>Tanggal</th>
 				<th>Dari</th>
 				<th>Informasi</th>
-				<th class="hidden-print">Actions</th>
+				<th class="hidden-print">Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,14 +33,17 @@
 			@foreach($notification as $key => $value)
 				<tr>
 					<td>{{ $i }}</td>
-					<td>{{{ $value->created_at }}}</td>
+					<td>{{{ Permit::tanggal($value->created_at, 'l, d/m/Y H:i') }}}</td>
 					<td>{{{ $value->sender['name'].' - '.$value->sender['division']['name'].' - '.$value->sender['position'] }}}</td>
 					<td>{{ HTML::linkRoute('notificationgo', $value->activity.' '.$value->object, array($value->id)) }}</td>
 					<td class="hidden-print">
 					@if($value->status)
-						<a class="btn btn-xs btn-success" href="{{ URL::route('notificationread', $value->id) }}">
+						<!-- <a class="btn btn-xs btn-success" href="{{ URL::route('notificationread', $value->id) }}">
 							<span class="glyphicon glyphicon-eye-open"></span>Tandai Sudah dibaca
-						</a>	
+						</a>	 -->
+						<label class="label label-success">Belum dibaca</label>
+					@else
+						<label class="label label-default">Sudah dibaca</label>
 					@endif
 					</td>
 				</tr>

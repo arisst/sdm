@@ -39,6 +39,7 @@ class DinasController extends \BaseController {
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24 14:50)'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 
@@ -92,13 +93,14 @@ class DinasController extends \BaseController {
 			'task' => 'required',
 			'address' => 'required',
 			'venue' => 'required',
-			'start_date' => 'required',
-			'finish_date' => 'required',
+			'start_date' => 'required|date_format:Y-m-d H:i',
+			'finish_date' => 'required|date_format:Y-m-d H:i',
 			'propose_uid' => 'required',
 			'auth_uid' => 'required',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24 14:50)'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 

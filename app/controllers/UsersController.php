@@ -3,6 +3,7 @@ class UsersController extends BaseController {
 
 	public function index()
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$perpage = 10;
 		if(Input::get('search'))
 		{
@@ -22,6 +23,7 @@ class UsersController extends BaseController {
 
 	public function create()
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$auth_option = User::authOption();
 		$list_divisi = Division::lists('name','id');
 		return View::make('user.form', array('auth_option'=>$auth_option, 'list_divisi'=>$list_divisi, 'parent'=>'', 'child'=>''))->with('act', 'add');
@@ -29,6 +31,7 @@ class UsersController extends BaseController {
 
 	public function store()
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$rules = array(
 			'name' => 'required',
 			'username' => 'required|alpha_dash|unique:users',
@@ -115,6 +118,7 @@ class UsersController extends BaseController {
 
 	public function edit($id)
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$list_divisi = Division::lists('name','id');
 		$auth_option = User::authOption($id);
 		$user = User::find($id);
@@ -124,6 +128,7 @@ class UsersController extends BaseController {
 
 	public function update($id)
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$rules = array(
 			'name' => 'required',
 			'username' => 'required|alpha_dash|unique:users,username,'.$id,
@@ -193,6 +198,7 @@ class UsersController extends BaseController {
 
 	public function destroy($id)
 	{
+		if(Auth::user()->level!=1) App::abort(401);
 		$user = User::find($id)->delete();
 
 		Logevent::create(array('uid'=>Auth::user()->id, 'ip'=>Request::getClientIp(), 'object_type'=>'user', 'object_action'=>'delete', 'object_value'=>$id, 'status'=>'success'));

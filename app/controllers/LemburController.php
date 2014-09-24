@@ -41,7 +41,8 @@ class LemburController extends \BaseController {
 			'lintas_divisi' => 'required',
 		);
 		$messages = array(
-			'required' => ':attribute harus diisi!',
+			'required' => 'harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24 14:50)'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 
@@ -95,8 +96,8 @@ class LemburController extends \BaseController {
 			'task' => 'required',
 			'address' => 'required',
 			'venue' => 'required',
-			'start_date' => 'required',
-			'finish_date' => 'required',
+			'start_date' => 'required|date_format:Y-m-d H:i',
+			'finish_date' => 'required|date_format:Y-m-d H:i',
 			'propose_uid' => 'required',
 			'transportasi' => 'numeric|min:0',
 			'makan' => 'numeric|min:0',
@@ -104,6 +105,7 @@ class LemburController extends \BaseController {
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24 14:50)'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 

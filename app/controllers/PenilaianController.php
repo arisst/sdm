@@ -2,6 +2,10 @@
 
 class PenilaianController extends BaseController {
 
+	function __construct() {
+		if(Auth::user()->level==3 && Route::currentRouteName()!='penilaian.edit' && Route::currentRouteName()!='penilaian.show' && Route::currentRouteName()!='penilaian-feedback') App::abort(401);
+	}
+
 	public function index()
 	{
 		$perpage = 10;
@@ -28,14 +32,19 @@ class PenilaianController extends BaseController {
 
 	public function store()
 	{
-		$rules = array();
+		$rules = array(
+			'voter_uid'=>'required',
+			'masuk_kerja'=>'required|date_format:"Y-m-d"',
+			'periode'=>'required'
+			);
 		for ($i=0; $i <= 7; $i++) { 
 			$rules['nilai.'.$i] = 'required|numeric|between:4,10';
 		}
 
 		$messages = array(
 			'required' => 'harus diisi!',
-			'between' => 'nilai 4 - 10'
+			'between' => 'nilai 4 - 10',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24)'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 

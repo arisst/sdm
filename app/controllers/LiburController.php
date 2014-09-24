@@ -32,14 +32,15 @@ class LiburController extends \BaseController {
 			'uid' => 'required',
 			'task' => 'required',
 			'transportasi' => 'required',
-			'start_work' => 'required',
+			'start_work' => 'required|date_format:"Y-m-d"',
 			'venue' => 'required',
-			'start_date' => 'required',
+			'start_date' => 'required|date_format:"Y-m-d"',
 			'address' => 'required',
 			'auth_uid' => 'required|different:uid',
 		);
 		$messages = array(
 			'required' => 'harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24)',
 			'different' => 'Tidak boleh sama dengan nama'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
@@ -95,14 +96,15 @@ class LiburController extends \BaseController {
 			'uid' => 'required',
 			'task' => 'required',
 			'transportasi' => 'required',
-			'start_work' => 'required',
+			'start_work' => 'required|date_format:"Y-m-d"',
 			'venue' => 'required',
-			'start_date' => 'required',
+			'start_date' => 'required|date_format:"Y-m-d"',
 			'address' => 'required',
 			'auth_uid' => 'required|different:uid',
 		);
 		$messages = array(
 			'required' => 'harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24)',
 			'different' => 'Tidak boleh sama dengan nama'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);

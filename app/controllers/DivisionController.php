@@ -1,6 +1,11 @@
 <?php
 
-class DivisionController extends \BaseController {
+class DivisionController extends BaseController {
+
+	function __construct() 
+	{
+		if(Auth::user()->level!=1) App::abort(401);
+	}
 
 	public function index()
 	{

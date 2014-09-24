@@ -28,15 +28,16 @@ class CutiController extends \BaseController {
 	{
 		$rules = array(
 			'uid' => 'required',
-			'start_work' => 'required',
+			'start_work' => 'required|date_format:"Y-m-d"',
 			'tasks' => 'required_if:task,other',
-			'start_date' => 'required',
-			'finish_date' => 'required',
+			'start_date' => 'required|date_format:"Y-m-d"',
+			'finish_date' => 'required|date_format:"Y-m-d"',
 			'address' => 'required',
 			'auth_uid' => 'required|different:uid',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24)',
 			'different' => 'Tidak boleh sama dengan nama'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
@@ -51,7 +52,7 @@ class CutiController extends \BaseController {
 			$permit->types = 'cuti';
 			$permit->uid = Input::get('uid');
 			$permit->start_work = Input::get('start_work');
-			$task = (Input::get('task')) ? Input::get('task') : Input::get('tasks') ;
+			$task = (Input::get('task')=='other') ? Input::get('tasks') : Input::get('task') ;
 			$permit->task = $task;
 			$permit->start_date = Input::get('start_date');
 			$permit->finish_date = Input::get('finish_date');
@@ -90,15 +91,16 @@ class CutiController extends \BaseController {
 	{
 		$rules = array(
 			'uid' => 'required',
-			'start_work' => 'required',
-			'task' => 'required',
-			'start_date' => 'required',
-			'finish_date' => 'required',
+			'start_work' => 'required|date_format:"Y-m-d"',
+			'tasks' => 'required_if:task,other',
+			'start_date' => 'required|date_format:"Y-m-d"',
+			'finish_date' => 'required|date_format:"Y-m-d"',
 			'address' => 'required',
 			'auth_uid' => 'required|different:uid',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
+			'date_format' => 'Format tanggal salah (contoh: 2014-09-24)',
 			'different' => 'Tidak boleh sama dengan nama'
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);

@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'id',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'id',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,7 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		
-		'Barryvdh\Elfinder\ElfinderServiceProvider'
+		'Barryvdh\Elfinder\ElfinderServiceProvider',
+		'Jenssegers\Date\DateServiceProvider'
 
 	),
 
@@ -190,6 +191,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
+		'Date'            => 'Jenssegers\Date\Date'
 
 	),
 

@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"barryvdh/laravel-elfinder":"0.1.x"
+		"barryvdh/laravel-elfinder":"0.1.x",
+		"jenssegers/date": "*"
 	},
 	"autoload": {
 		"classmap": [

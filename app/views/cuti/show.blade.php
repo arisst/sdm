@@ -28,7 +28,7 @@
       </tr>
       <tr>
         <th>Mulai Bekerja</th>
-        <td>{{{ date("l, d F Y", strtotime($c->start_work)) }}}</td>
+        <td>{{Permit::tanggal($c->start_work, 'l, d F Y')}}</td>
       </tr>
       <tr>
         <th>Jenis Cuti</th>
@@ -36,11 +36,11 @@
       </tr>
       <tr>
         <th>Mulai</th>
-        <td>{{{ date("l, d F Y", strtotime($c->start_date)) }}}</td>
+        <td>{{Permit::tanggal($c->start_date, 'l, d F Y')}}</td>
       </tr>
       <tr>
         <th>Sampai</th>
-        <td>{{{ date("l, d F Y", strtotime($c->finish_date)) }}}</td>
+        <td>{{Permit::tanggal($c->finish_date, 'l, d F Y')}}</td>
       </tr>
       <tr>
         <th>Alamat Selama Cuti</th>
@@ -68,7 +68,7 @@
       </tr>
       <tr>
         <th>Waktu</th>
-        <td>Dibuat : {{$c->created_at}}, diperbarui : {{$c->updated_at}}</td>
+        <td>Dibuat : {{Permit::tanggal($c->created_at, 'l, d F Y H:i:s')}}</td>
       </tr>
     @if($c->status==0 && $permnotif->notification['recepient_id']==Auth::user()->id)
       <tr class="hidden-print">
