@@ -1,7 +1,7 @@
 <?php
 // $path_home = (Auth::user()->level==1) ? 'files' : 'files/users/'.Auth::user()->id ;
 
-$mount = array(
+$mount = array( //role user / my file
     array(
             'driver'        => 'LocalFileSystem', 
             'path'          => 'files/users/'.Auth::user()->id, 
@@ -11,14 +11,20 @@ $mount = array(
                 array(
                     'pattern' => '/\.(?:tmb|htaccess|quarantine)$/i',
                     'hidden'  => true
+                ),
+                array(  //Disable delete
+                    'pattern' => '/.+/',
+                    'read'  => true,
+                    'write' => true,
+                    'locked' => true,
                 )
             )
         )
     );
 
-if(Auth::user()->level==1)
+if(Auth::user()->level==1) //role admin all file
 {
-    foreach (User::all() as $key) {
+    foreach (User::all() as $key) { 
         $divisi = $key->division;
         $mount2 = array(
                 'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
@@ -28,7 +34,7 @@ if(Auth::user()->level==1)
                 'attributes' => array(
                     array(
                         'pattern' => '/\.(?:tmb|htaccess|quarantine)$/i',
-                        'hidden'  => true
+                        'hidden'  => true,
                     )
                 )
             );

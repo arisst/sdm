@@ -55,6 +55,8 @@
 						@elseif ($value->level == '2') Koordinator
 						@elseif ($value->level == '3') Staff
 						@elseif ($value->level == '4') Asisten Koordinator
+						@elseif ($value->level == '5') Ketua Subkom
+						@elseif ($value->level == '6') Sekjen
 						@else Unknown
 						@endif
 					</td>

@@ -36,8 +36,12 @@ class UsersController extends BaseController {
 			'name' => 'required',
 			'username' => 'required|alpha_dash|unique:users',
 			'email' => 'required|email|unique:users',
+			'email_work' => 'required|email|unique:users',
+			'address' => 'required',
+			'birth_date' => 'required',
 			'phone' => 'required|numeric',
-			'division_id' => 'required|numeric',
+			'emergency_phone' => 'required|numeric',
+			'division_id' => 'numeric',
 			'level' => 'required|numeric',
 			'password' => 'required|min:4|same:passconf',
 			'passconf' => 'required'
@@ -60,8 +64,13 @@ class UsersController extends BaseController {
 			$user->name = Input::get('name');
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
+			$user->email_work = Input::get('email_work');
+			$user->address = Input::get('address');
+			$user->birth_date = Input::get('birth_date');
 			$user->phone = Input::get('phone');
-			$user->division_id = Input::get('division_id');
+			$user->emergency_phone = Input::get('emergency_phone');
+			$user->level = Input::get('level');
+			$user->division_id = (Input::has('division_id')) ? Input::get('division_id') : 0;
 
 			switch (Input::get('level')) {
 				case '2':
@@ -72,6 +81,12 @@ class UsersController extends BaseController {
 					break;
 				case '4':
 					$position = 'Asisen Koordinator';
+					break;
+				case '5':
+					$position = 'Ketua Subkom';
+					break;
+				case '6':
+					$position = 'Sekjen';
 					break;
 				default:
 					$position = '';
@@ -131,10 +146,14 @@ class UsersController extends BaseController {
 		if(Auth::user()->level!=1) App::abort(401);
 		$rules = array(
 			'name' => 'required',
-			'username' => 'required|alpha_dash|unique:users,username,'.$id,
-			'email' => 'required|email|unique:users,email,'.$id,
+			'username' => 'sometimes|alpha_dash|required|unique:users,username,'.$id,
+			'email' => 'sometimes|required|email|unique:users,email,'.$id,
+			'email_work' => 'sometimes|required|email|unique:users,email_work,'.$id,
+			'address' => 'required',
+			'birth_date' => 'required',
 			'phone' => 'required|numeric',
-			'division_id' => 'required|numeric',
+			'emergency_phone' => 'required|numeric',
+			'division_id' => 'numeric',
 			'level' => 'required|numeric',
 			'password' => 'min:4|same:passconf'
 		);
@@ -157,8 +176,13 @@ class UsersController extends BaseController {
 			$user->name = Input::get('name');
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
+			$user->email_work = Input::get('email_work');
+			$user->address = Input::get('address');
+			$user->birth_date = Input::get('birth_date');
 			$user->phone = Input::get('phone');
-			$user->division_id = Input::get('division_id');
+			$user->emergency_phone = Input::get('emergency_phone');
+			$user->division_id = (Input::has('division_id')) ? Input::get('division_id') : 0;
+			$user->level = Input::get('level');
 			switch (Input::get('level')) {
 				case '2':
 					$position = 'Koordinator';
@@ -168,6 +192,12 @@ class UsersController extends BaseController {
 					break;
 				case '4':
 					$position = 'Asisen Koordinator';
+					break;
+				case '5':
+					$position = 'Ketua Subkom';
+					break;
+				case '6':
+					$position = 'Sekjen';
 					break;
 				default:
 					$position = '';

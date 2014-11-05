@@ -74,10 +74,13 @@ class AccountController extends BaseController {
 	public function doProfile()
 	{
 		$rules = array(
-			'name' => 'required',
+			// 'name' => 'required',
 			'username' => 'sometimes|required|unique:users,username,'.Auth::user()->id,
 			'email' => 'sometimes|required|email|unique:users,email,'.Auth::user()->id,
-			'phone' => 'numeric|required',
+			'address' => 'required',
+			'birth_date' => 'required',
+			'phone' => 'required|numeric',
+			'emergency_phone' => 'required|numeric',
 			'password' => 'min:4|same:passconf',
 		);
 		$messages = array(
@@ -95,9 +98,12 @@ class AccountController extends BaseController {
 		else 
 		{
 			$user = User::find(Auth::user()->id);
-			$user->name = Input::get('name');
+			// $user->name = Input::get('name');
 			$user->email = Input::get('email');
 			$user->phone = Input::get('phone');
+			$user->address = Input::get('address');
+			$user->birth_date = Input::get('birth_date');
+			$user->emergency_phone = Input::get('emergency_phone');
 			if(Input::get('password')) $user->password = Hash::make(Input::get('password'));
 			$user->save();
 

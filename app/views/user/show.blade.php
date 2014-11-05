@@ -28,12 +28,28 @@
     <td><b>{{{$user->username}}}</b></td>
   </tr>
   <tr>
-    <td>Email</td>
+    <td>Email Kantor</td>
+    <td><b>{{HTML::mailto($user->email_work, $user->email_work)}}</b></td>
+  </tr>
+  <tr>
+    <td>Email Pribadi</td>
     <td><b>{{HTML::mailto($user->email, $user->email)}}</b></td>
+  </tr>
+  <tr>
+    <td>Alamat</td>
+    <td><b>{{{$user->address}}}</b></td>
+  </tr>
+  <tr>
+    <td>Tanggal Lahir</td>
+    <td><b>{{{$user->birth_date}}}</b></td>
   </tr>
   <tr>
     <td>No. HP</td>
     <td><b>{{{$user->phone}}}</b></td>
+  </tr>
+  <tr>
+    <td>Kontak darurat</td>
+    <td><b>{{{$user->emergency_phone}}}</b></td>
   </tr>
   <tr>
     <td>Divisi</td>
@@ -45,6 +61,8 @@
                             @elseif ($user->level == '2') Koordinator
                             @elseif ($user->level == '3') Staff
                             @elseif ($user->level == '4') Asisten Koordinator
+                            @elseif ($user->level == '5') Ketua Subkom
+                            @elseif ($user->level == '6') Sekjen
                             @else Unknown
                             @endif
                           </b></td>

@@ -14,8 +14,8 @@
 
   <div class="alert alert-info" style="padding:10px;margin-bottom:0px;">
   <ul>
-  	<li>Hati-hati, file/folder yang sudah dihapus tidak dapat dikembalikan lagi</li>
-  	<li>Untuk upload file/folder dapat langsung drag n drop</li>
+  	<li>Guanakan dengan bijak, file/folder yang sudah diupload tidak dapat dihapus, kecuali oleh admin</li>
+  	<li>Untuk upload file/folder dapat langsung <i>drag and drop</i></li>
   </ul>
   </div>
   <!-- IFRAME ELFINDER -->

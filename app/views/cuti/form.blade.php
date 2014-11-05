@@ -59,7 +59,7 @@ else if('edit'==$act)
 	{{ Form::label('task', 'Jenis Cuti/Ijin *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			<div class="radio">
-			  <label>{{Form::radio('task', 'Tahunan untuk periode tahun 2011-2012')}} Tahunan untuk periode tahun 2011-2012 (... hari) </label>
+			  <label>{{Form::radio('task', 'Tahunan untuk periode tahun 2011-2012')}} Tahunan untuk periode tahun ini </label>
 			</div>
 			<div class="radio">
 			  <label>{{Form::radio('task', 'Hamil & melahirkan (3 bulan)')}} Hamil & melahirkan (3 bulan) </label>
