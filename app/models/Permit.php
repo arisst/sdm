@@ -16,7 +16,6 @@ class Permit extends Eloquent
 	}
 
 	/* Static Function */
-
 	public static function listing($types, $search='')
 	{
 		$key = ($types=='lembur'||$types=='dinas') ? 'permits.propose_uid' : 'permits.auth_uid' ;
@@ -29,9 +28,16 @@ class Permit extends Eloquent
 		$t->leftJoin('divisions', 'users.division_id', '=', 'divisions.id');
 		$t->select(DB::raw('permits.*, agreements.status, concat(users.name, " - ", divisions.name) as name, concat(users2.name, " - ", users2.position) as name2'));
 		$t->where('types','=',$types);
-		if(Auth::user()->level!=1)
+		if(Auth::user()->level==3) //staff
 		{
 			$t->where('uid', Auth::user()->id);
+		}
+		else if(Auth::user()->level==2) //koordinator
+		{
+			$bawahan = User::getBawahan(Auth::user()->id);
+			foreach ($bawahan as $key) {
+				$t->orWhere('uid', $key->id);
+			}
 		}
 
 		return $t->paginate(10);

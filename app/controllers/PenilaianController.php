@@ -12,11 +12,9 @@ class PenilaianController extends BaseController {
 		if(Input::get('search'))
 		{
 			$term = Input::get('search');
-			$query = DB::table('grades');
-				$query->where('name', 'LIKE', '%'.$term.'%')
-				->orWhere('email', 'LIKE', '%'.$term.'%');
-			$results = $query->paginate($perpage);
-			return View::make('penilaian.index')->with('penilaian', $results)->with('keyword', $term);
+			return View::make('penilaian.index')
+						->with('penilaian', Grade::listing($term))
+						->with('keyword', $term);
 		}
 		else
 		{

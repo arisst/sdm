@@ -8,11 +8,9 @@ class LemburController extends \BaseController {
 		if(Input::get('search'))
 		{
 			$term = Input::get('search');
-			$query = DB::table('permits');
-				$query->where('name', 'LIKE', '%'.$term.'%')
-				->orWhere('email', 'LIKE', '%'.$term.'%');
-			$results = $query->paginate($perpage);
-			return View::make('lembur.index')->with('permits', $results)->with('keyword', $term);
+			return View::make('lembur.index')
+						->with('permits', Permit::listing('lembur', $term))
+						->with('keyword', $term);
 		}
 		else
 		{

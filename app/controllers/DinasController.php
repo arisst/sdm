@@ -8,11 +8,9 @@ class DinasController extends \BaseController {
 		if(Input::get('search'))
 		{
 			$term = Input::get('search');
-			$query = DB::table('permits');
-				$query->where('name', 'LIKE', '%'.$term.'%')
-				->orWhere('email', 'LIKE', '%'.$term.'%');
-			$results = $query->paginate($perpage);
-			return View::make('dinas.index')->with('permits', $results)->with('keyword', $term);
+			return View::make('dinas.index')
+						->with('permits', Permit::listing('dinas', $term))
+						->with('keyword', $term);
 		}
 		else
 		{

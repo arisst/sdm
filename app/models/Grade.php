@@ -17,14 +17,16 @@ class Grade extends Eloquent
 
 	/* Static Function */
 
-	public static function listing()
+	public static function listing($search = '')
 	{
-		return DB::table('grades')
-				->join('users', 'grades.voter_uid', '=', 'users.id')
-				->join('users as users2', 'grades.uid', '=', 'users2.id')
-				->leftJoin('divisions', 'divisions.id', '=', 'users.division_id')
-				->select(DB::raw('grades.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, users2.position) as name2'))
-				->paginate(10);
+		$t = DB::table('grades');
+		if ($search) $t->where('users.name', $search);
+		$t->join('users', 'grades.voter_uid', '=', 'users.id');
+		$t->join('users as users2', 'grades.uid', '=', 'users2.id');
+		$t->leftJoin('divisions', 'divisions.id', '=', 'users.division_id');
+		$t->select(DB::raw('grades.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, users2.position) as name2'));
+
+		return $t->paginate(10);
 	}
 
 }
