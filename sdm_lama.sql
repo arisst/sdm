@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 12, 2014 at 10:01 AM
+-- Generation Time: Nov 04, 2014 at 10:15 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.18
 
@@ -28,22 +28,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `agreements` (
 `id` int(11) NOT NULL,
-  `permit_id` int(11) DEFAULT NULL,
-  `grade_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL COMMENT 'id user yang menyetujui',
-  `status` smallint(6) NOT NULL COMMENT '1 diterima, 2 ditolak',
+  `permit_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `agreements`
 --
 
-INSERT INTO `agreements` (`id`, `permit_id`, `grade_id`, `user_id`, `status`, `created_at`) VALUES
-(13, 24, NULL, 3, 1, '2014-09-19 04:07:49'),
-(15, 25, NULL, 3, 2, '2014-09-19 04:29:53'),
-(16, 27, NULL, 3, 1, '2014-09-26 10:09:32'),
-(17, 28, NULL, 5, 1, '2014-11-12 08:39:20');
+INSERT INTO `agreements` (`id`, `permit_id`, `user_id`, `status`, `created_at`) VALUES
+(13, 24, 3, 1, '2014-09-19 04:07:49'),
+(15, 25, 3, 2, '2014-09-19 04:29:53'),
+(16, 27, 3, 1, '2014-09-26 10:09:32');
 
 -- --------------------------------------------------------
 
@@ -83,7 +81,7 @@ INSERT INTO `divisions` (`id`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `grades` (
 `id` int(10) unsigned NOT NULL,
-  `uid` int(11) NOT NULL COMMENT 'id user yang menilai',
+  `uid` int(11) NOT NULL,
   `masuk_kerja` date DEFAULT NULL,
   `periode` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nilai` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -91,11 +89,10 @@ CREATE TABLE IF NOT EXISTS `grades` (
   `comments` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `kelebihan` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `peningkatan` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `target` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rencana_peningkatan` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `voter_comments` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `voter_uid` int(11) NOT NULL COMMENT 'id user yang dinilai',
+  `voter_uid` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
@@ -104,11 +101,11 @@ CREATE TABLE IF NOT EXISTS `grades` (
 -- Dumping data for table `grades`
 --
 
-INSERT INTO `grades` (`id`, `uid`, `masuk_kerja`, `periode`, `nilai`, `jumlah_nilai`, `comments`, `kelebihan`, `peningkatan`, `target`, `note`, `rencana_peningkatan`, `voter_comments`, `voter_uid`, `created_at`, `updated_at`) VALUES
-(3, 3, '2014-09-09', '2014', 'a:8:{i:0;s:2:"10";i:1;s:2:"10";i:2;s:1:"7";i:3;s:2:"10";i:4;s:1:"4";i:5;s:1:"7";i:6;s:1:"9";i:7;s:1:"6";}', 8, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', NULL, '', '', 'asdas', 4, '2014-09-22 09:59:16', '2014-09-22 10:12:01'),
-(4, 3, '2014-09-22', '2014', 'a:8:{i:0;s:1:"4";i:1;s:2:"10";i:2;s:1:"4";i:3;s:2:"10";i:4;s:1:"4";i:5;s:2:"10";i:6;s:1:"4";i:7;s:2:"10";}', 7, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', 'target harus jelas', '', '', NULL, 12, '2014-09-22 10:18:13', '2014-11-12 07:01:02'),
-(5, 1, '2014-09-24', '2011', 'a:8:{i:0;s:2:"10";i:1;s:2:"10";i:2;s:2:"10";i:3;s:2:"10";i:4;s:2:"10";i:5;s:2:"10";i:6;s:2:"10";i:7;s:2:"10";}', 10, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', NULL, '', '', NULL, 2, '2014-09-24 06:54:26', '2014-09-24 06:54:26'),
-(6, 1, '2014-08-28', '2014', 'a:8:{i:0;s:1:"9";i:1;s:1:"8";i:2;s:1:"8";i:3;s:1:"6";i:4;s:1:"6";i:5;s:1:"8";i:6;s:1:"7";i:7;s:1:"6";}', 8, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', 'dfv', 'sdfsd', NULL, 'fsdfs', 'dfsdf', NULL, 2, '2014-10-01 04:38:45', '2014-10-01 04:38:45');
+INSERT INTO `grades` (`id`, `uid`, `masuk_kerja`, `periode`, `nilai`, `jumlah_nilai`, `comments`, `kelebihan`, `peningkatan`, `note`, `rencana_peningkatan`, `voter_comments`, `voter_uid`, `created_at`, `updated_at`) VALUES
+(3, 3, '2014-09-09', '2014', 'a:8:{i:0;s:2:"10";i:1;s:2:"10";i:2;s:1:"7";i:3;s:2:"10";i:4;s:1:"4";i:5;s:1:"7";i:6;s:1:"9";i:7;s:1:"6";}', 8, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', '', '', 'asdas', 4, '2014-09-22 09:59:16', '2014-09-22 10:12:01'),
+(4, 3, '2014-09-22', '2014', 'a:8:{i:0;s:1:"4";i:1;s:2:"10";i:2;s:1:"4";i:3;s:2:"10";i:4;s:1:"4";i:5;s:2:"10";i:6;s:1:"4";i:7;s:2:"10";}', 7, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', '', '', NULL, 12, '2014-09-22 10:18:13', '2014-09-22 10:18:13'),
+(5, 1, '2014-09-24', '2011', 'a:8:{i:0;s:2:"10";i:1;s:2:"10";i:2;s:2:"10";i:3;s:2:"10";i:4;s:2:"10";i:5;s:2:"10";i:6;s:2:"10";i:7;s:2:"10";}', 10, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', '', '', '', '', NULL, 2, '2014-09-24 06:54:26', '2014-09-24 06:54:26'),
+(6, 1, '2014-08-28', '2014', 'a:8:{i:0;s:1:"9";i:1;s:1:"8";i:2;s:1:"8";i:3;s:1:"6";i:4;s:1:"6";i:5;s:1:"8";i:6;s:1:"7";i:7;s:1:"6";}', 8, 'a:8:{i:0;s:0:"";i:1;s:0:"";i:2;s:0:"";i:3;s:0:"";i:4;s:0:"";i:5;s:0:"";i:6;s:0:"";i:7;s:0:"";}', 'dfv', 'sdfsd', 'fsdfs', 'dfsdf', NULL, 2, '2014-10-01 04:38:45', '2014-10-01 04:38:45');
 
 -- --------------------------------------------------------
 
@@ -126,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `logevents` (
   `object_value` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=358 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=301 ;
 
 --
 -- Dumping data for table `logevents`
@@ -432,64 +429,7 @@ INSERT INTO `logevents` (`id`, `uid`, `ip`, `object_type`, `object_action`, `obj
 (297, 0, '::1', 'anonimous', 'login', NULL, NULL, 'failed', '2014-10-12 12:28:54'),
 (298, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-10-12 12:29:00'),
 (299, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-10-13 13:45:46'),
-(300, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-04 09:12:29'),
-(301, 12, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-04 09:19:09'),
-(302, 3, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-04 09:21:32'),
-(303, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-04 09:24:22'),
-(304, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-05 02:16:57'),
-(305, 1, '192.168.1.46', 'user', 'login', NULL, NULL, 'success', '2014-11-05 04:03:08'),
-(306, 1, '192.168.1.46', 'user', 'editprofile', NULL, '1', 'success', '2014-11-05 04:14:08'),
-(307, 1, '192.168.1.46', 'user', 'editprofile', NULL, '1', 'success', '2014-11-05 04:28:03'),
-(308, 1, '192.168.1.46', 'user', 'editprofile', NULL, '1', 'success', '2014-11-05 04:29:25'),
-(309, 1, '192.168.1.46', 'user', 'edit', NULL, '2', 'success', '2014-11-05 04:51:16'),
-(310, 12, '192.168.1.46', 'user', 'login', NULL, NULL, 'success', '2014-11-05 04:55:06'),
-(311, 12, '192.168.1.46', 'user', 'login', NULL, NULL, 'success', '2014-11-05 04:56:57'),
-(312, 1, '192.168.1.46', 'user', 'login', NULL, NULL, 'success', '2014-11-05 05:40:10'),
-(313, 1, '192.168.1.46', 'user', 'login', NULL, NULL, 'success', '2014-11-05 05:40:27'),
-(314, 1, '192.168.1.46', 'user', 'create', NULL, '24', 'success', '2014-11-05 06:40:18'),
-(315, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-05 10:39:29'),
-(316, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-10 02:43:59'),
-(317, 3, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-10 03:21:07'),
-(318, 12, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-10 03:45:53'),
-(319, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-10 04:10:46'),
-(320, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-10 07:42:38'),
-(321, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-11 03:13:08'),
-(322, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 04:26:01'),
-(323, 12, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 06:02:24'),
-(324, 3, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 06:13:34'),
-(325, 3, '::1', 'penilaian', 'edit', NULL, '4', 'success', '2014-11-12 07:01:02'),
-(326, 1, '192.168.1.53', 'user', 'login', NULL, NULL, 'success', '2014-11-12 07:27:39'),
-(327, 3, '192.168.1.53', 'user', 'login', NULL, NULL, 'success', '2014-11-12 07:40:44'),
-(328, 1, '192.168.1.53', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:00:54'),
-(329, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:02:08'),
-(330, 1, '::1', 'user', 'create', NULL, '25', 'success', '2014-11-12 08:03:26'),
-(331, 25, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:04:28'),
-(332, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:20:17'),
-(333, 3, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:20:27'),
-(334, 25, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:20:39'),
-(335, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:33:16'),
-(336, 1, '::1', 'user', 'edit', NULL, '24', 'success', '2014-11-12 08:34:02'),
-(337, 24, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:34:28'),
-(338, 24, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:34:33'),
-(339, 24, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:34:37'),
-(340, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:35:21'),
-(341, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:38'),
-(342, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:42'),
-(343, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:46'),
-(344, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:50'),
-(345, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:53'),
-(346, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:35:57'),
-(347, 20, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:36:04'),
-(348, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:36:13'),
-(349, 1, '::1', 'user', 'edit', NULL, '20', 'success', '2014-11-12 08:36:47'),
-(350, 20, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:36:57'),
-(351, 20, '::1', 'cuti', 'create', NULL, '28', 'success', '2014-11-12 08:38:11'),
-(352, 5, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:38:32'),
-(353, 5, '::1', 'agreement', 'set', NULL, '17', 'success', '2014-11-12 08:39:20'),
-(354, 20, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:39:33'),
-(355, 20, '::1', 'cuti', 'create', NULL, '29', 'success', '2014-11-12 08:40:50'),
-(356, 24, '::1', 'user', 'login', NULL, NULL, 'failed', '2014-11-12 08:41:07'),
-(357, 24, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-12 08:41:10');
+(300, 1, '::1', 'user', 'login', NULL, NULL, 'success', '2014-11-04 09:12:29');
 
 -- --------------------------------------------------------
 
@@ -524,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `object_id` int(11) DEFAULT NULL,
   `status` smallint(6) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `notifications`
@@ -542,10 +482,7 @@ INSERT INTO `notifications` (`id`, `recepient_id`, `sender_id`, `activity`, `obj
 (20, 2, 1, 'memberi', 'penilaian', 5, 1, '2014-09-24 06:54:26'),
 (21, 3, 12, 'mengajukan', 'cuti', 27, 0, '2014-09-26 10:07:27'),
 (22, 12, 3, 'menyetujui', 'cuti', 27, 0, '2014-09-26 10:09:32'),
-(23, 2, 1, 'memberi', 'penilaian', 6, 1, '2014-10-01 04:38:45'),
-(24, 5, 20, 'mengajukan', 'cuti', 28, 0, '2014-11-12 08:38:11'),
-(25, 20, 5, 'menyetujui', 'cuti', 28, 0, '2014-11-12 08:39:20'),
-(26, 5, 20, 'mengajukan', 'cuti', 29, 1, '2014-11-12 08:40:50');
+(23, 2, 1, 'memberi', 'penilaian', 6, 1, '2014-10-01 04:38:45');
 
 -- --------------------------------------------------------
 
@@ -574,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `permits` (
   `auth_task` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `permits`
@@ -589,9 +526,7 @@ INSERT INTO `permits` (`id`, `types`, `uid`, `propose_uid`, `start_date`, `finis
 (24, 'cuti', 12, NULL, '2014-09-19 00:00:00', '2014-09-19 00:00:00', 'other', NULL, 'zzcdsfa', 4, 'dzdz', NULL, NULL, '2014-09-19', NULL, NULL, NULL, NULL, '2014-09-19 04:05:11', '2014-09-19 04:05:11'),
 (25, 'libur', 12, NULL, '2014-09-19 00:00:00', NULL, 'liburan ke lombok', 'Lombok', '', 2, 'ambon', NULL, NULL, '2014-09-19', '5 Minggu', NULL, NULL, NULL, '2014-09-19 04:22:50', '2014-09-19 04:22:50'),
 (26, 'cuti', 2, NULL, '2014-09-24 00:00:00', '2014-09-24 00:00:00', 'Khitanan / baptis anak pekerja (2 hari)', NULL, 'asda', 4, 'asds', NULL, NULL, '2014-08-08', NULL, NULL, NULL, NULL, '2014-09-24 04:18:59', '2014-09-24 04:18:59'),
-(27, 'cuti', 12, NULL, '2014-05-13 00:00:00', '2014-12-10 00:00:00', 'Pernikahan saudara / ipar kandung pekerja (1 hari)', NULL, '', 10, 'alamat', NULL, NULL, '2014-05-06', NULL, NULL, NULL, NULL, '2014-09-26 10:07:27', '2014-09-26 10:07:27'),
-(28, 'cuti', 20, NULL, '2014-11-27 00:00:00', '2014-12-02 00:00:00', 'Pernikahan anak pekerja (2 hari)', NULL, 'catetan', 11, 'malang', NULL, NULL, '2014-11-03', NULL, NULL, NULL, NULL, '2014-11-12 08:38:11', '2014-11-12 08:38:11'),
-(29, 'cuti', 20, NULL, '2014-12-06 00:00:00', '2015-02-19 00:00:00', 'Kematian anggota keluarga dalam satu rumah (1 hari)', NULL, 'zxcz', 11, 'sdcsxzc', NULL, NULL, '2014-10-29', NULL, NULL, NULL, NULL, '2014-11-12 08:40:50', '2014-11-12 08:40:50');
+(27, 'cuti', 12, NULL, '2014-05-13 00:00:00', '2014-12-10 00:00:00', 'Pernikahan saudara / ipar kandung pekerja (1 hari)', NULL, '', 10, 'alamat', NULL, NULL, '2014-05-06', NULL, NULL, NULL, NULL, '2014-09-26 10:07:27', '2014-09-26 10:07:27');
 
 -- --------------------------------------------------------
 
@@ -603,13 +538,14 @@ CREATE TABLE IF NOT EXISTS `rules` (
 `id` int(10) unsigned NOT NULL,
   `uid` int(11) DEFAULT NULL,
   `parent_uid` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=74 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=72 ;
 
 --
 -- Dumping data for table `rules`
 --
 
 INSERT INTO `rules` (`id`, `uid`, `parent_uid`) VALUES
+(58, 20, 5),
 (59, 5, 3),
 (60, 21, 10),
 (62, 4, 3),
@@ -621,8 +557,7 @@ INSERT INTO `rules` (`id`, `uid`, `parent_uid`) VALUES
 (68, 11, 10),
 (69, 11, 21),
 (70, 12, 3),
-(72, 2, 5),
-(73, 20, 5);
+(71, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -635,14 +570,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `email_work` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `birth_date` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `emergency_phone` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `division_id` int(11) NOT NULL,
   `position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `level` smallint(6) NOT NULL COMMENT '1 administrator, 2 koordinator, 3 staff, 4 asisten koordinator, 5 ketua subkom, 6 sekjen',
+  `level` smallint(6) NOT NULL,
   `status` smallint(6) NOT NULL,
   `parent_uid` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `child_uid` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -651,31 +582,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   `activate_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_work`, `address`, `birth_date`, `emergency_phone`, `phone`, `division_id`, `position`, `level`, `status`, `parent_uid`, `child_uid`, `password`, `remember_token`, `activate_key`, `created_at`, `updated_at`) VALUES
-(1, 'Aris Setyono', 'aris', 'me@arisst.com', 'aris@airputih.or.id', 'Jalan warga', '23 Agutus 2001', '080910022', '085259838599', 0, 'Administrator', 1, 1, NULL, NULL, '$2y$10$FdABYNeRXArfYYumXMfL6eKvUkrAwsOIKyq/V42DLLpR336lWj.yG', 'i7oF6uLfn5JST9WMSwZAntxXydoMb7K40238fFjnZEgWKnKTSXd5PBwk5zKf', NULL, '2014-07-15 21:55:41', '2014-11-12 08:35:33'),
-(2, 'Budi', 'budi', 'budi@ko.id', 'budi@s.dm', 'jakarta', '23 Agutus 2001', '1209923', '080910022', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$rKmE/fvjbx.HefJOiiDRWOAuF9YTr7FQqyyYa4EjHTpSkDBoVc6HO', 'aDqzGerpqubwA8dzN0qPb0dI0uxYdkWriCxg8IRR4ULLWV4KqWupStHfnvKu', NULL, '2014-08-07 19:50:44', '2014-11-05 04:51:16'),
-(3, 'Candra', 'candra', 'candra@ko.id', '', '', '', '', '0123321', 1, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$McmQQdJz37pwLSLD9EOhgeqQ9.x991sG7RrwhD7wQ4ybQ.qNEm3Zu', 'KU688q19PU2ifJ0AbvY9QHkZgINYnKJ2LGDcCs2D24yfoL6V3BuZL5XikkIK', NULL, '2014-08-07 19:51:29', '2014-11-12 08:20:30'),
-(4, 'Deni', 'deni', 'deni@ko.id', '', '', '', '', '090234', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$mZAVHeYb6DYnTQ9XcBLgMuUKRvXtOvmXdjz4cfXs8VIxLeirhOUZq', 'DULXXUrUDUT8WrqZFHrFz9EQ9ERKyDxSZgFTEGI3PyQF5Vt3UPUDs5HUC6IT', NULL, '2014-08-07 19:52:02', '2014-09-22 10:17:24'),
-(5, 'Erna', 'erna', 'erna@ko.id', '', '', '', '', '01239999', 1, 'Asisen Koordinator', 4, 1, NULL, NULL, '$2y$10$gg5VxKSniuKHnCP2A2ZQfuc8CWOkrt0Rpa.Bl/nF1h//vJdxsHzXu', 'aqvoi7lAZdPDeOhE8gvlWM8HEUaPjszjY1oMv1z8FWg4StAyCLBBG2ak5qPO', NULL, '2014-08-07 19:52:40', '2014-11-12 08:39:26'),
-(6, 'Fatimah', 'fatimah', 'fat@ko.id', '', '', '', '', '012123142', 8, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$kzc58Ls0sQLpVVSTSbo2F.VxBKduH.WVnGmhyoPo0Ewbkrla00yxC', NULL, NULL, '2014-08-07 19:53:23', '2014-09-01 08:02:50'),
-(7, 'Galih', 'galih', 'galih@ko.id', '', '', '', '', '0843212312', 8, 'Staff', 3, 1, NULL, NULL, '$2y$10$X5u2eG2zzUQ1ZLAVumAl6.vk4rQGf6gpelPcrdZxHmIy6YAh55sGm', NULL, NULL, '2014-08-07 19:53:57', '2014-09-01 08:09:08'),
-(8, 'Hatta Rajasa', 'hatta', 'hatta@ko.id', '', '', '', '', '095603242', 8, 'Staff', 3, 1, NULL, NULL, '$2y$10$rJZjRnIhfWw/SCOjxXOmA.z7ZNpal0pen255nRMzmNVKQwqb7Tja6', NULL, NULL, '2014-08-07 19:55:59', '2014-09-01 08:09:17'),
-(9, 'Iriana', 'iriana', 'iriana@ko.id', '', '', '', '', '234000241', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$kGOqMX4mTSmgT4ufy.mdWu5yI6ursLWr/Wc41nSDl3lZy04x8BbYy', 'NA3aT8fvKDB69EZlO27P8YEfPHMEfnOcGw2Hj87oFTyxnF8VJFqhCWSGDPle', NULL, '2014-08-07 19:56:36', '2014-09-01 08:09:41'),
-(10, 'Joko Widodo', 'joko', 'joko@wi.net', '', '', '', '', '0123321', 9, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$p/Z4Q7VTTgfqCJcWEV6nGugLhnkuEe8FT1PBURPJPTfLx4a6e09Sa', 'qr1f0MKAG0d2KuEbUZu6QrrunDvN0fZHzHr9GxDUiYdoHIYCPtaldYs9ztuc', NULL, '2014-08-07 19:58:11', '2014-09-26 10:31:38'),
-(11, 'Khusnul', 'khusnul', 'khu@sn.ul', '', '', '', '', '02342323', 9, 'Staff', 3, 1, NULL, NULL, '$2y$10$mmPOYoyDsek32Vhx1fzk3OO4F/OYmiWcySFuvre78dEPAOD.hFHqS', NULL, NULL, '2014-08-07 19:59:16', '2014-09-01 08:09:54'),
-(12, 'Lontong Sulapar', 'lontong', 'lon@to.ng', '', '', '', '', '080910033', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$qImM8tZDmvCXeIO.B0cwDuYsGeCNG1GpnEePkG7uxcKQ6ZrOafLLq', 'pUuoPr3KK83ltnwgIQbFAyM3QrJajSC3FJheZwFvmbFxPxKnbYaAgvsAa5QO', NULL, '2014-08-17 20:14:54', '2014-11-12 06:13:28'),
-(20, 'Basuki', 'basuki', 'basuki@gmail.com', 'bas@u.ki', 'Djakarta', '23 Agutus 2001', '1209923', '6285259838599', 13, 'Staff', 3, 1, NULL, NULL, '$2y$10$JKhYqbyerX3YbU0BxpCvPe2eK.KaUUEmTTMuc2kjSdORuwVVBgZry', 'hxz3hmxNe6oaUCIZKY706fOkwsGMEqNM8kJaBV3Bu6TeYJhKeQvKb7B9ZEg9', NULL, '2014-08-20 00:48:09', '2014-11-12 08:40:55'),
-(21, 'Marzuki', 'marzuki', 'marzuk@gmail.com', '', '', '', '', '02342561', 9, 'Asisen Koordinator', 4, 1, NULL, NULL, '$2y$10$EQXIFjwtbVkNLu5t2RWM0uMtGXP5u7c.msTsqlo/mYHGtwR0O1nfy', NULL, NULL, '2014-08-20 00:53:27', '2014-09-01 08:03:29'),
-(22, 'Nanang Suyatno', 'nanang', 'n@na.ng', '', '', '', '', '430123', 13, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$ZechwHhuO9Lr4giWCT3a1.oLoKPjUOE/Gfji6ql.HHsgNQvj2JDGS', NULL, NULL, '2014-08-26 00:56:48', '2014-09-01 08:03:18'),
-(23, 'Agus Sunaryo', 'agus', 'agus@asdas.cd', '', '', '', '', '923423', 11, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$9zddE28geTBUVj6nZodKpe.9PKpSz4UvQHmiDoVH1uaqnEFJqyrg2', NULL, NULL, '2014-09-01 08:51:04', '2014-09-01 08:51:04'),
-(24, 'Pak Bos', 'bos', 'bos@gmail.com', 'pak@b.os', 'jakarta', '23 Agutus 2001', '1209923', '085259838599', 1, 'Ketua Subkom', 5, 1, NULL, NULL, '$2y$10$MVtmZ0GQ1o2AzO.gUoRP9.zeoBKjsPQQ.DbuHtv8c7Vet6FR1XOyS', 'ZuIp6ZU8RBwpW2ePOdjvu2FjdUvKMkXZnNlq6OcoAYcWjNWZv1fg3WOnIPvN', NULL, '2014-11-05 06:40:18', '2014-11-12 08:36:11'),
-(25, 'Pak Sekjen', 'sekjen', 'sekjen@google.co.id', 'sek@j.en', 'Bandung', '23 Juli 1982', '092112323', '0193029394', 0, 'Sekjen', 6, 1, NULL, NULL, '$2y$10$P0VZxXVzuYXEkXNawH7raeimwdWjncvKsxrP1i26A6rXUelhQFwle', 'hPRpXAaLWrzdABpQjZBwTOWsxglCVtKu8VMxtsCTbA4IGnO77hWDBNONjbLA', NULL, '2014-11-12 08:03:26', '2014-11-12 08:33:13');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `division_id`, `position`, `level`, `status`, `parent_uid`, `child_uid`, `password`, `remember_token`, `activate_key`, `created_at`, `updated_at`) VALUES
+(1, 'Aris Setyono', 'aris', 'me@arisst.com', '085259838599', 0, 'Administrator', 1, 1, NULL, NULL, '$2y$10$FdABYNeRXArfYYumXMfL6eKvUkrAwsOIKyq/V42DLLpR336lWj.yG', 'oEkA9SlYse3jiu8Igj7EKlwSRcT7N829RFcYFfM0G0dEVq2mfWnuluMUOKPW', NULL, '2014-07-15 21:55:41', '2014-10-13 13:46:07'),
+(2, 'Budi', 'budi', 'budi@ko.id', '080910022', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$rKmE/fvjbx.HefJOiiDRWOAuF9YTr7FQqyyYa4EjHTpSkDBoVc6HO', 'aDqzGerpqubwA8dzN0qPb0dI0uxYdkWriCxg8IRR4ULLWV4KqWupStHfnvKu', NULL, '2014-08-07 19:50:44', '2014-09-24 04:19:06'),
+(3, 'Candra', 'candra', 'candra@ko.id', '0123321', 1, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$McmQQdJz37pwLSLD9EOhgeqQ9.x991sG7RrwhD7wQ4ybQ.qNEm3Zu', 'fiiVP91N3GsjaIVeaVx2UWKONjinOX1foksG6G1MkJzOEpiPrvZKS0EmTRZO', NULL, '2014-08-07 19:51:29', '2014-09-26 10:31:26'),
+(4, 'Deni', 'deni', 'deni@ko.id', '090234', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$mZAVHeYb6DYnTQ9XcBLgMuUKRvXtOvmXdjz4cfXs8VIxLeirhOUZq', 'DULXXUrUDUT8WrqZFHrFz9EQ9ERKyDxSZgFTEGI3PyQF5Vt3UPUDs5HUC6IT', NULL, '2014-08-07 19:52:02', '2014-09-22 10:17:24'),
+(5, 'Erna', 'erna', 'erna@ko.id', '01239999', 1, 'Asisen Koordinator', 4, 1, NULL, NULL, '$2y$10$gg5VxKSniuKHnCP2A2ZQfuc8CWOkrt0Rpa.Bl/nF1h//vJdxsHzXu', 'c8E2fHqL3TCzEmJCo0RyMUHxnJPixiExgxfUzvlq93YsCUnIwPePbP0eaQnk', NULL, '2014-08-07 19:52:40', '2014-09-24 04:26:04'),
+(6, 'Fatimah', 'fatimah', 'fat@ko.id', '012123142', 8, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$kzc58Ls0sQLpVVSTSbo2F.VxBKduH.WVnGmhyoPo0Ewbkrla00yxC', NULL, NULL, '2014-08-07 19:53:23', '2014-09-01 08:02:50'),
+(7, 'Galih', 'galih', 'galih@ko.id', '0843212312', 8, 'Staff', 3, 1, NULL, NULL, '$2y$10$X5u2eG2zzUQ1ZLAVumAl6.vk4rQGf6gpelPcrdZxHmIy6YAh55sGm', NULL, NULL, '2014-08-07 19:53:57', '2014-09-01 08:09:08'),
+(8, 'Hatta Rajasa', 'hatta', 'hatta@ko.id', '095603242', 8, 'Staff', 3, 1, NULL, NULL, '$2y$10$rJZjRnIhfWw/SCOjxXOmA.z7ZNpal0pen255nRMzmNVKQwqb7Tja6', NULL, NULL, '2014-08-07 19:55:59', '2014-09-01 08:09:17'),
+(9, 'Iriana', 'iriana', 'iriana@ko.id', '234000241', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$kGOqMX4mTSmgT4ufy.mdWu5yI6ursLWr/Wc41nSDl3lZy04x8BbYy', 'NA3aT8fvKDB69EZlO27P8YEfPHMEfnOcGw2Hj87oFTyxnF8VJFqhCWSGDPle', NULL, '2014-08-07 19:56:36', '2014-09-01 08:09:41'),
+(10, 'Joko Widodo', 'joko', 'joko@wi.net', '0123321', 9, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$p/Z4Q7VTTgfqCJcWEV6nGugLhnkuEe8FT1PBURPJPTfLx4a6e09Sa', 'qr1f0MKAG0d2KuEbUZu6QrrunDvN0fZHzHr9GxDUiYdoHIYCPtaldYs9ztuc', NULL, '2014-08-07 19:58:11', '2014-09-26 10:31:38'),
+(11, 'Khusnul', 'khusnul', 'khu@sn.ul', '02342323', 9, 'Staff', 3, 1, NULL, NULL, '$2y$10$mmPOYoyDsek32Vhx1fzk3OO4F/OYmiWcySFuvre78dEPAOD.hFHqS', NULL, NULL, '2014-08-07 19:59:16', '2014-09-01 08:09:54'),
+(12, 'Lontong Sulapar', 'lontong', 'lon@to.ng', '080910033', 1, 'Staff', 3, 1, NULL, NULL, '$2y$10$qImM8tZDmvCXeIO.B0cwDuYsGeCNG1GpnEePkG7uxcKQ6ZrOafLLq', 'Ige7GItFanTLmNvu1wzQsbc9myeEWyrB6NOjj2ph8dxGnIrTSNwPhcmR8NWg', NULL, '2014-08-17 20:14:54', '2014-09-26 10:13:09'),
+(20, 'Basuki', 'basuki', 'basuki@gmail.com', '6285259838599', 13, 'Staff', 3, 1, NULL, NULL, '$2y$10$8v27fW.OKp7yM6dFU3gah.M6ceCQbCoLgY4/Fe2JlK4As4894CojS', NULL, NULL, '2014-08-20 00:48:09', '2014-09-01 07:57:00'),
+(21, 'Marzuki', 'marzuki', 'marzuk@gmail.com', '02342561', 9, 'Asisen Koordinator', 4, 1, NULL, NULL, '$2y$10$EQXIFjwtbVkNLu5t2RWM0uMtGXP5u7c.msTsqlo/mYHGtwR0O1nfy', NULL, NULL, '2014-08-20 00:53:27', '2014-09-01 08:03:29'),
+(22, 'Nanang Suyatno', 'nanang', 'n@na.ng', '430123', 13, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$ZechwHhuO9Lr4giWCT3a1.oLoKPjUOE/Gfji6ql.HHsgNQvj2JDGS', NULL, NULL, '2014-08-26 00:56:48', '2014-09-01 08:03:18'),
+(23, 'Agus Sunaryo', 'agus', 'agus@asdas.cd', '923423', 11, 'Koordinator', 2, 1, NULL, NULL, '$2y$10$9zddE28geTBUVj6nZodKpe.9PKpSz4UvQHmiDoVH1uaqnEFJqyrg2', NULL, NULL, '2014-09-01 08:51:04', '2014-09-01 08:51:04');
 
 --
 -- Indexes for dumped tables
@@ -737,7 +666,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agreements`
 --
 ALTER TABLE `agreements`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `divisions`
 --
@@ -752,27 +681,27 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `logevents`
 --
 ALTER TABLE `logevents`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=358;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=301;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `permits`
 --
 ALTER TABLE `permits`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `rules`
 --
 ALTER TABLE `rules`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

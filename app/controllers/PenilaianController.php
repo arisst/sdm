@@ -63,6 +63,7 @@ class PenilaianController extends BaseController {
 			$grade->peningkatan = Input::get('peningkatan');
 			$grade->note = Input::get('note');
 			$grade->rencana_peningkatan = Input::get('rencana_peningkatan');
+			$grade->target = Input::get('target');
 			$grade->voter_comments = Input::get('voter_comments');
 			$grade->voter_uid = Input::get('voter_uid');
 			$grade->save();
@@ -132,6 +133,7 @@ class PenilaianController extends BaseController {
 			$grade->peningkatan = Input::get('peningkatan');
 			$grade->note = Input::get('note');
 			$grade->rencana_peningkatan = Input::get('rencana_peningkatan');
+			$grade->target = Input::get('target');
 			$grade->voter_comments = Input::get('voter_comments');
 			$grade->voter_uid = Input::get('voter_uid');
 			$grade->save();

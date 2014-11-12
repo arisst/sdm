@@ -46,8 +46,7 @@ Route::get('img/{file?}', function($file){
 });
 
 /* DEBUG QUERY */
-
-Event::listen('illuminate.query', function($query, $bindings, $time, $name)
+/*Event::listen('illuminate.query', function($query, $bindings, $time, $name)
 {
 	$data = compact('bindings', 'time', 'name');
 
@@ -69,6 +68,6 @@ Event::listen('illuminate.query', function($query, $bindings, $time, $name)
         $query = vsprintf($query, $bindings); 
         
     var_dump($query);
-});
+});*/
 
 

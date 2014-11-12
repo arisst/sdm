@@ -344,6 +344,14 @@ else if('edit'==$act)
 	</div>
 
 	<div class="form-group">
+		{{ Form::label('target', 'Target yang disepakati', array('class'=>'col-sm-3 control-label')) }}
+			<div class="input-group col-xs-6">
+				{{ Form::textarea('target', Input::old('target'), array('size'=>'30x4','class'=>'form-control input-sm', 'id'=>'target', $attr)) }}
+				<span class="help-block alert-danger">{{ $errors->first('target') }}</span>
+			</div>
+	</div>
+
+	<div class="form-group">
 		<div class="col-sm-offset-3">
 	
 @if($act=='edit')
@@ -355,9 +363,11 @@ else if('edit'==$act)
 						<span class="glyphicon glyphicon-edit"></span> Kirim Masukan/Respon
 					</a>
 			@else
+			  @if(Auth::user()->level!=5 && Auth::user()->level!=6)
 				<a class="btn btn-sm btn-info" href="?">
 					<span class="glyphicon glyphicon-edit"></span> Edit
 				</a>
+			  @endif
 			@endif
 		@endif
 @elseif($act=='add')

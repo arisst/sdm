@@ -2,6 +2,8 @@
   <span class="glyphicon glyphicon-th-list"></span> List {{$p}}
 </a>
 
-<a href="{{ URL::route($l.'.create') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()==($l.'.create')) ? 'active' : '' }}">
-	  <span class="glyphicon glyphicon-plus"></span> Form {{$p}}
-</a>
+@if(Auth::user()->level!=5 && Auth::user()->level!=6)
+	<a href="{{ URL::route($l.'.create') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()==($l.'.create')) ? 'active' : '' }}">
+		  <span class="glyphicon glyphicon-plus"></span> Form {{$p}}
+	</a>
+@endif
