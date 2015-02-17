@@ -35,7 +35,6 @@
 				<th>Nama</th>
 				<th>Periode</th>
 				<th>Nilai</th>
-				<th>Status</th>
 				<th class="hidden-print">Actions</th>
 			</tr>
 		</thead>
@@ -47,12 +46,6 @@
 					<td>{{{ $value->name }}}</td>
 					<td>{{{ $value->periode }}}</td>
 					<td>{{{ $value->jumlah_nilai }}}</td>
-					<td>
-						@if ($value->status == 1) Disetujui
-						@elseif ($value->status == 2) Ditolak
-						@else Menunggu
-						@endif
-					</td>
 					
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('penilaian.destroy',$value->id), 'style' => 'margin-bottom:0')) }}

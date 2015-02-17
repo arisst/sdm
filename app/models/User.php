@@ -80,13 +80,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $bawahan;
 	}
 
-	public static function listing()
+	public static function listing($search = '')
 	{
-		return DB::table('users')
+		$user = DB::table('users')
 				->leftJoin('divisions', 'divisions.id', '=', 'users.division_id')
 				->select(DB::raw('users.*, divisions.name as division_name'))
-				->orderBy('users.name','asc')
-				->paginate(10);
+				->orderBy('users.name','asc');
+			if($search!='') $user->where('users.name', 'LIKE', '%'.$search.'%')->orWhere('users.email', 'LIKE', '%'.$search.'%');;
+		return	$user->paginate(10);
 	}
 
 	public static function authOption($id = '')

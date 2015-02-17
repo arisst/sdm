@@ -158,6 +158,15 @@ else if('profile'==$act)
 	</div>
 
 	<div class="form-group">
+	{{ Form::label('work_date', 'Mulai Kerja *', array('class'=>'col-sm-2 control-label')) }}
+		<div class="input-group date col-xs-6" id="work_date" data-date-format="YYYY-MM-DD">
+			{{ Form::text('work_date', Input::old('work_date'), array('placeholder'=>'Mulai Kerja', 'class'=>'form-control input-sm', 'id'=>'work_date', 'required'))}}
+			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			<span class="help-block alert-danger">{{ $errors->first('work_date') }}</span>
+		</div>
+	</div>
+
+	<div class="form-group">
 		{{ Form::label('parent_uid', 'Atasan *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::select('parent_uid[]', $auth_option, $parent, array('class'=>'form-control input-sm chosen-select', 'id'=>'parent_uid', 'tabindex'=>4, 'multiple' ))}}
@@ -198,6 +207,13 @@ else if('profile'==$act)
 {{HTML::script('assets/chosen/chosen.jquery.js')}}    
 
 <script type="text/javascript">
+	//DATETIME PICKER
+    $(function(){
+        $('#work_date').datetimepicker({
+        	pickTime: false,
+			// defaultDate:"1/1/1990"
+        });
+    });
 
 	//CHOSEN SELECT
 	var config = {

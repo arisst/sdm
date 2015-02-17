@@ -1,16 +1,16 @@
 @extends('layout')
 @section('title')
-	List Libur
+	List Kompensasi
 @stop
 
 @section('content')
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Libur List</div>
+  <div class="panel-heading">Kompensasi List</div>
   <div class="panel-body">
 
-	@include('action', array('p' => 'Libur', 'l'=>'libur', 'a'=>'active'))
+	@include('action', array('p' => 'Kompensasi', 'l'=>'libur', 'a'=>'active'))
 
     {{ Form::open(array('route'=>'libur.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
@@ -33,7 +33,7 @@
 			<tr>
 				<th>No</th>
 				<th>Nama</th>
-				<th>Tanggal Libur</th>
+				<th>Tanggal Kompensasi</th>
 				<th>Wewenang kepada</th>
 				<th>Status</th>
 				<th class="hidden-print">Actions</th>

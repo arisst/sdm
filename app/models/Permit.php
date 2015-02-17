@@ -39,6 +39,10 @@ class Permit extends Eloquent
 				$t->orWhere('uid', $key->id);
 			}
 		}
+		else if(Auth::user()->level == 5) //subkom
+		{
+			$t->where('divisions.id', Auth::user()->division_id);
+		}
 
 		return $t->paginate(10);
 	}

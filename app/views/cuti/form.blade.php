@@ -30,6 +30,12 @@ else if('edit'==$act)
 	{{ Form::open(array('route'=>'cuti.store', 'class'=>'form-horizontal')) }}
 @elseif('edit'==$act)
 	{{ Form::model($cuti, array('route' => array('cuti.update', $cuti->id), 'method' => 'PUT', 'class'=>'form-horizontal')) }}
+	<script type="text/javascript">
+		$( document ).ready(function() {
+				var uid = document.getElementById("uid").value
+			    loadXMLDoc(uid);
+			});
+	</script>
 @endif
 
 	<div class="form-group">
@@ -39,22 +45,57 @@ else if('edit'==$act)
 			{{ Form::text('nama', Auth::user()->name.' - '.Auth::user()->division['name'].' - '.Auth::user()->position, array('class'=>'form-control input-sm', 'id'=>'nama', 'placeholder'=>'Nama Lengkap', 'data-provide'=>'typeahead','readonly')) }}
 			{{ Form::hidden('uid', Auth::user()->id) }}
 		@else
-			{{ Form::select('uid', array(''=>'- Pilih -') + $auth_option, Input::old('uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'uid', 'required'))}}
+			{{ Form::select('uid', array(''=>'- Pilih -') + $auth_option, Input::old('uid'), array('class'=>'form-control input-sm chosen-select', 'id'=>'uid', 'onChange'=>'loadXMLDoc(this.value)', 'required'))}}
+
+			<div class="well well-sm" id="myDiv">Pilih nama</div>
+
+			<script>
+			function loadXMLDoc(uid)
+			{
+				var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  	xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				xmlhttp.onreadystatechange=function()
+				  {
+					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+					    {
+					    // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+					    var v = JSON.parse(xmlhttp.responseText);
+				    	document.getElementById("myDiv").innerHTML = '<table class="table"><tr><td><b>Nama</b></td><td>: '+v['user']['name']+'</td></tr><tr><td><b>Mulai kerja</b></td><td>: '+v['user']['work_date']+'</td></tr><tr><td><b>Divisi</b></td><td>: '+v['user']['division']['name']+'</td></tr><tr><td><b>Jabatan</b></td><td>: '+v['user']['position']+'</td></tr><tr><td><b>Sisa Cuti</b></td><td>: </td></tr></table>';
+					    }
+					  else if(xmlhttp.readyState<4)
+					  {
+					    document.getElementById("myDiv").innerHTML='Loading ... ';
+					  }
+					   else
+					   {
+					    document.getElementById("myDiv").innerHTML='Terjadi kesalahan : '+xmlhttp.responseText+'<br><input type="button" value="Reload" onclick="window.location.reload();return false;"> ';
+					   }
+				  }
+				xmlhttp.open("GET","{{URL::to('userinfo')}}?uid="+uid,true);
+				xmlhttp.setRequestHeader("X-Requested-With","XMLHttpRequest");
+				xmlhttp.send();
+			}
+			</script>
 		@endif
 		<span class="help-block alert-danger">{{ $errors->first('uid') }}</span>
 		</div>
 	</div>
 
+@if(Auth::user()->level==3)
 	<div class="form-group">
-	{{ Form::label('start_work', 'Mulai Kerja *', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('start_work', 'Mulai Kerja ', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group date col-xs-6" id="start_work" data-date-format="YYYY-MM-DD">
-			{{ Form::text('start_work', Input::old('start_work'), array('class'=>'form-control input-sm', 'id'=>'start_work', 'placeholder'=>'Mulai Kerja', 'required')) }}
-			<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-
-			<span class="help-block alert-danger">{{ $errors->first('start_work') }}</span>
+			{{ Form::text('start_work', Auth::user()->work_date, array('class'=>'form-control input-sm', 'id'=>'start_work', 'placeholder'=>'Mulai Kerja', 'readonly')) }}
 		</div>
 	</div>
-
+@endif
 	<div class="form-group">
 	{{ Form::label('task', 'Jenis Cuti/Ijin *', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">

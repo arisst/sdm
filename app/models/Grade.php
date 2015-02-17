@@ -22,10 +22,14 @@ class Grade extends Eloquent
 		$t = DB::table('grades');
 		if ($search) $t->where('users.name', $search);
 		$t->join('users', 'grades.voter_uid', '=', 'users.id');
-		$t->leftjoin('agreements', 'grades.id', '=', 'agreements.grade_id');
 		$t->join('users as users2', 'grades.uid', '=', 'users2.id');
 		$t->leftJoin('divisions', 'divisions.id', '=', 'users.division_id');
-		$t->select(DB::raw('grades.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, users2.position) as name2, agreements.status as status'));
+		$t->select(DB::raw('grades.*, concat(users.name, " - ", divisions.name, " - ", users.position) as name, concat(users2.name, users2.position) as name2'));
+
+		if(Auth::user()->level != 1 && Auth::user()->level != 6) //selain admin dan sekjen
+		{
+			$t->where('divisions.id', Auth::user()->division_id);
+		}
 
 		return $t->paginate(10);
 	}

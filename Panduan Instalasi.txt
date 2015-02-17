@@ -1,0 +1,6 @@
+Panduan Instalasi:
+
+1. Copy folder "SDM" dan isinya ke Document Root webserver
+2. Import file "sdm.sql" ke database mysql server
+3. Edit file "app/config/database.php" pada bagian mysql sesuaikan dengan konfigurasi mysql server
+4. Ubah permission folder "app/storage" ke 777

@@ -19,15 +19,25 @@
         	<ul class="nav navbar-nav"> 
             <li class="{{ Request::is('notification*') ? 'active' : '' }}">{{ HTML::link('notification', $count.' Notifikasi') }}</li>
             <li class="{{ Request::is('cuti*') ? 'active' : '' }}">{{ HTML::link('cuti', 'Cuti') }}</li>
-            <li class="{{ Request::is('libur*') ? 'active' : '' }}">{{ HTML::link('libur', 'Libur') }}</li>
+            <li class="{{ Request::is('libur*') ? 'active' : '' }}">{{ HTML::link('libur', 'Kompensasi') }}</li>
             <li class="{{ Request::is('file*') ? 'active' : '' }}">{{ HTML::link('file', 'File') }}</li>
           @if(Auth::user()->level!=3)
             <li class="{{ Request::is('lembur*') ? 'active' : '' }}">{{ HTML::link('lembur', 'Lembur') }}</li>
-            <li class="{{ Request::is('dinas*') ? 'active' : '' }}">{{ HTML::link('dinas', 'Dinas') }}</li>
+            @if(Auth::user()->level!=4)
+              <li class="{{ Request::is('dinas*') ? 'active' : '' }}">{{ HTML::link('dinas', 'Dinas') }}</li>
+            @endif
             <li class="{{ Request::is('penilaian*') ? 'active' : '' }}">{{ HTML::link('penilaian', 'Penilaian') }}</li>
             @if(Auth::user()->level==1)
-            <li class="{{ Request::is('users*') ? 'active' : '' }}">{{ HTML::link('users', 'User') }}</li>
-    			  <li class="{{ Request::is('division*') ? 'active' : '' }}">{{ HTML::link('division', 'Divisi') }}</li>
+            <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                Settings <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="{{ Request::is('users*') ? 'active' : '' }}">{{ HTML::link('users', 'User') }}</li>
+                <li class="{{ Request::is('division*') ? 'active' : '' }}">{{ HTML::link('division', 'Divisi') }}</li>
+                <li class="{{ Request::is('errors*') ? 'active' : '' }}">{{ HTML::link('errors', 'Error report') }}</li>
+              </ul>
+            </li>
             @endif
           @endif
     			</ul>
@@ -35,6 +45,7 @@
     				<p class="navbar-text navbar-right"><a href="{{URL::to('profile')}}">{{Auth::user()->name}}</a>  |
     				<a href="{{ URL::to('logout') }}">Logout</a></p><p class="navbar-text navbar-right">{{--Auth::user()->nama--}}</p>
     			</div>
+          
         @else
           {{Form::open(array('route'=>'login-submit', 'class'=>'navbar-form navbar-right', 'role'=>'form'))}}
             <div class="form-group">

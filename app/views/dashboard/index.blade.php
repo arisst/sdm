@@ -41,7 +41,7 @@ $division = User::find(1)->division;
 	  			<td>Jabatan</td>
 	  			<td> : <b>{{{ Auth::user()->position }}}</b></td>
 	  		</tr>
-	  		<tr>
+	  		<!-- <tr>
 	  			<td>Atasan</td>
 	  			<td>  
 	  				@foreach ($atasan as $key)
@@ -56,7 +56,7 @@ $division = User::find(1)->division;
 			         : <b>{{ HTML::linkRoute('users.show', $key->name.' - '.$key->division['name'].' - '.$key->position, array($key->id)) }} <br> </b>
 			        @endforeach
         		</td>
-	  		</tr>
+	  		</tr> -->
 	  		<tr>
 	  			<td>Password</td>
 	  			<td> : {{ HTML::linkRoute('profile-form', 'Ganti password') }}</td>

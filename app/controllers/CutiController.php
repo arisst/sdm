@@ -28,7 +28,7 @@ class CutiController extends \BaseController {
 	{
 		$rules = array(
 			'uid' => 'required',
-			'start_work' => 'required|date_format:"Y-m-d"',
+			// 'start_work' => 'required|date_format:"Y-m-d"',
 			'tasks' => 'required_if:task,other',
 			'start_date' => 'required|date_format:"Y-m-d"',
 			'finish_date' => 'required|date_format:"Y-m-d"',
@@ -51,7 +51,7 @@ class CutiController extends \BaseController {
 			$permit = new Permit;
 			$permit->types = 'cuti';
 			$permit->uid = Input::get('uid');
-			$permit->start_work = Input::get('start_work');
+			// $permit->start_work = Input::get('start_work');
 			$task = (Input::get('task')=='other') ? Input::get('tasks') : Input::get('task') ;
 			$permit->task = $task;
 			$permit->start_date = Input::get('start_date');
@@ -65,6 +65,7 @@ class CutiController extends \BaseController {
 			Logevent::create(array('uid'=>Auth::user()->id, 'ip'=>Request::getClientIp(), 'object_type'=>'cuti', 'object_action'=>'create', 'object_value'=>$permit->id, 'status'=>'success'));
 
 			Notification::kirim('mengajukan', 'cuti', $permit->id);
+			// Notification::kirim('memberikan wewenang', 'cuti', $permit->id, $permit->auth_uid);
 
 			Session::flash('message', 'Pengajuan cuti berhasil!');
 			return Redirect::route('cuti.index');
@@ -91,7 +92,7 @@ class CutiController extends \BaseController {
 	{
 		$rules = array(
 			'uid' => 'required',
-			'start_work' => 'required|date_format:"Y-m-d"',
+			// 'start_work' => 'required|date_format:"Y-m-d"',
 			'tasks' => 'required_if:task,other',
 			'start_date' => 'required|date_format:"Y-m-d"',
 			'finish_date' => 'required|date_format:"Y-m-d"',
@@ -113,7 +114,7 @@ class CutiController extends \BaseController {
 		{
 			$permit = Permit::find($id);
 			$permit->uid = Input::get('uid');
-			$permit->start_work = Input::get('start_work');
+			// $permit->start_work = Input::get('start_work');
 			$task = (Input::get('task')) ? Input::get('task') : Input::get('tasks') ;
 			$permit->task = $task;
 			$permit->start_date = Input::get('start_date');

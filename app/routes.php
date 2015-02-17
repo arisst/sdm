@@ -37,6 +37,9 @@ Route::group(array('before' => 'auth'), function()
 		Route::resource('file', 'FileController');// ???
 		Route::resource('penilaian', 'PenilaianController');
 		Route::resource('division', 'DivisionController');
+		Route::resource('errors', 'ErrorController');
+
+        Route::get('userinfo', 'UsersController@ajax');
     });
 
 Route::get('img/{file?}', function($file){
@@ -44,6 +47,7 @@ Route::get('img/{file?}', function($file){
 	$response->header('Content-Type', 'image/png');
 	return $response;
 });
+
 
 /* DEBUG QUERY */
 /*Event::listen('illuminate.query', function($query, $bindings, $time, $name)

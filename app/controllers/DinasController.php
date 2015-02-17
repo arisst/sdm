@@ -2,6 +2,10 @@
 
 class DinasController extends \BaseController {
 
+	function __construct() {
+		if(Auth::user()->level==4 || Auth::user()->level==3)	App::abort(401);
+	}
+
 	public function index()
 	{
 		$perpage = 10;

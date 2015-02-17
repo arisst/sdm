@@ -8,16 +8,53 @@ class UsersController extends BaseController {
 		if(Input::get('search'))
 		{
 			$term = Input::get('search');
-			$query = DB::table('users');
-				$query->where('name', 'LIKE', '%'.$term.'%')
-				->orWhere('email', 'LIKE', '%'.$term.'%');
-			$results = $query->paginate($perpage);
+			$results = User::listing($term);
 			return View::make('user.index')->with('users', $results)->with('keyword', $term);
 		}
 		else
 		{
 			$users = User::listing();
 			return View::make('user.index')->with('users', $users);
+		}
+	}
+
+	public function ajax()
+	{
+		if(Request::ajax()) 
+		{
+			$a = User::find(Input::get('uid'));
+			if($a){
+			$b = '<table class="table">
+					<tr>
+						<td><b>Nama</b></td>
+						<td>: '.$a['name'].'</td>
+					</tr>
+					<tr>
+						<td><b>Mulai kerja</b></td>
+						<td>: '.$a['work_date'].'</td>
+					</tr>
+					<tr>
+						<td><b>Divisi</b></td>
+						<td>: '.$a['division']['name'].'</td>
+					</tr>
+					<tr>
+						<td><b>Jabatan</b></td>
+						<td>: '.$a['position'].'</td>
+					</tr>
+					<tr>
+						<td><b>Sisa Cuti</b></td>
+						<td>: </td>
+					</tr>
+				</table>';
+			}else
+			{
+				$b='Pilih nama';
+			}
+			return Response::json(array('user'=>$a));
+		}
+		else
+		{
+			exit('Bad request');
 		}
 	}
 
@@ -42,6 +79,7 @@ class UsersController extends BaseController {
 			'phone' => 'required|numeric',
 			'emergency_phone' => 'required|numeric',
 			'division_id' => 'numeric',
+			'work_date' => 'required|date_format:"Y-m-d"',
 			'level' => 'required|numeric',
 			'password' => 'required|min:4|same:passconf',
 			'passconf' => 'required'
@@ -71,6 +109,7 @@ class UsersController extends BaseController {
 			$user->emergency_phone = Input::get('emergency_phone');
 			$user->level = Input::get('level');
 			$user->division_id = (Input::has('division_id')) ? Input::get('division_id') : 0;
+			$user->work_date = Input::get('work_date');
 
 			switch (Input::get('level')) {
 				case '2':
@@ -154,6 +193,7 @@ class UsersController extends BaseController {
 			'phone' => 'required|numeric',
 			'emergency_phone' => 'required|numeric',
 			'division_id' => 'numeric',
+			'work_date' => 'required|date_format:"Y-m-d"',
 			'level' => 'required|numeric',
 			'password' => 'min:4|same:passconf'
 		);
@@ -182,6 +222,7 @@ class UsersController extends BaseController {
 			$user->phone = Input::get('phone');
 			$user->emergency_phone = Input::get('emergency_phone');
 			$user->division_id = (Input::has('division_id')) ? Input::get('division_id') : 0;
+			$user->work_date = Input::get('work_date');
 			$user->level = Input::get('level');
 			switch (Input::get('level')) {
 				case '2':
